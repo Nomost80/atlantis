@@ -1,0 +1,16 @@
+FROM microsoft/dotnet:2.2.104-sdk-alpine AS build
+WORKDIR /src/Services/Device/Device.API
+COPY *.csproj ./
+RUN dotnet restore
+COPY . ./
+RUN dotnet build -c Release -o out
+
+FROM build AS publish
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM microsoft/dotnet:2.2.2-aspnetcore-runtime-alpine AS runtime
+WORKDIR /src/Services/Device/Device.API
+COPY --from=publish /src/Services/Device/Device.API/out .
+ENTRYPOINT ["dotnet", "Device.API.dll"]
+EXPOSE 7201:80

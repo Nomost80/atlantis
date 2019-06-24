@@ -1,0 +1,16 @@
+FROM microsoft/dotnet:2.2.104-sdk-alpine AS build
+WORKDIR /src/Services/Calculation/Calculation.API
+COPY *.csproj ./
+RUN dotnet restore
+COPY . ./
+RUN dotnet build -c Release -o out
+
+FROM build AS publish
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM microsoft/dotnet:2.2.2-aspnetcore-runtime-alpine AS runtime
+WORKDIR /src/Services/Calculation/Calculation.API
+COPY --from=publish /src/Services/Calculation/Calculation.API/out .
+ENTRYPOINT ["dotnet", "Calculation.API.dll"]
+EXPOSE 7202:80

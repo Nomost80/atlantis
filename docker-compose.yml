@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  mailer:
+    image: jeanberu/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+  emqx:
+    image: emqx/emqx:latest
+    ports:
+      - "18083:18083"
+      - "8083:8083"
+      - "8084:8084"
+
+  iot_database:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "iot"
+      MYSQL_USER: "cesi"
+      MYSQL_PASSWORD: "cesi_pwd"
+    volumes:
+      - "/srv/iot_db:/var/lib/mysql"
+    ports:
+      - "7327:3306"
+
+  calculations_database:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "calculations"
+      MYSQL_USER: "cesi"
+      MYSQL_PASSWORD: "cesi_pwd"
+    volumes:
+      - "/srv/calculations_db:/var/lib/mysql"
+    ports:
+      - "7328:3306"

@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  teamcity-server:
+    image: jetbrains/teamcity-server
+    volumes:
+      - "/srv/teamcity-server/data:/data/teamcity_server/datadir"
+      - "/srv/teamcity-server/logs:/opt/teamcity/logs"
+    ports:
+      - "8111:8111"
+    networks:
+      teamcity-net:
+        ipv4_address: 172.16.238.10
+
+  teamcity-agent:
+    image: jetbrains/teamcity-agent
+    environment:
+      SERVER_URL: "http://172.16.238.10:8111"
+    volumes:
+      - "/srv/teamcity-agent/conf:/data/teamcity_agent/conf"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/srv/teamcity-agent/work:/opt/buildagent/work"
+      - "/srv/teamcity-agent/temp:/opt/buildagent/temp"
+      - "/srv/teamcity-agent/tools:/opt/buildagent/tools"
+      - "/srv/teamcity-agent/plugins:/opt/buildagent/plugins"
+      - "/srv/teamcity-agent/system:/opt/buildagent/system"
+    networks:
+      teamcity-net:
+        ipv4_address: 172.16.238.11
+
+networks:
+  teamcity-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.238.0/24"
