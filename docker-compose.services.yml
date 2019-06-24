@@ -4,28 +4,53 @@ services:
     build:
       context: ./src/Services/MetricPersistence
       dockerfile: Dockerfile.dev
+    networks:
+      apps-net:
+        ipv4_address: 172.16.240.1
 
   calculation_engine:
     build:
       context: ./src/Services/Calculation/Calculation.Engine
       dockerfile: Dockerfile.dev
+    networks:
+      apps-net:
+        ipv4_address: 172.16.240.2
 
   device_api:
     build:
       context: ./src/Services/Device/Device.API
       dockerfile: Dockerfile.dev
+    networks:
+      apps-net:
+        ipv4_address: 172.16.240.3
 
   calculation_api:
     build:
       context: ./src/Services/Calculation/Calculation.API
       dockerfile: Dockerfile.dev
+    networks:
+      apps-net:
+        ipv4_address: 172.16.240.4
 
   mobile_api:
     build:
       context: ./src/Services/Mobile.API
       dockerfile: Dockerfile.dev
+    networks:
+      apps-net:
+        ipv4_address: 172.16.240.5
 
   web_admin:
     build:
       context: ./src/Web/Admin
       dockerfile: Dockerfile.dev
+    networks:
+      apps-net:
+        ipv4_address: 172.16.240.6
+
+networks:
+  apps-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.240.0/24"

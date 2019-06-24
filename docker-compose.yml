@@ -5,6 +5,9 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
+    networks:
+      services-net:
+        ipv4_address: 172.16.239.1
 
   emqx:
     image: emqx/emqx:latest
@@ -12,6 +15,9 @@ services:
       - "18083:18083"
       - "8083:8083"
       - "8084:8084"
+    networks:
+      services-net:
+        ipv4_address: 172.16.239.2
 
   iot_database:
     image: mysql:latest
@@ -24,6 +30,9 @@ services:
       - "/srv/iot_db:/var/lib/mysql"
     ports:
       - "7327:3306"
+    networks:
+      services-net:
+        ipv4_address: 172.16.239.3
 
   calculations_database:
     image: mysql:latest
@@ -36,3 +45,13 @@ services:
       - "/srv/calculations_db:/var/lib/mysql"
     ports:
       - "7328:3306"
+    networks:
+      services-net:
+        ipv4_address: 172.16.239.4
+
+networks:
+  services-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.239.0/24"
