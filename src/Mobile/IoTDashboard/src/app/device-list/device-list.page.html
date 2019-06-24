@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Device List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button (click)="goGraph()" expand="block" class="element">Graph</ion-button>
+
+  <div *ngFor="let i of array1">
+
+    <ion-item (click)="goDevice()">
+      <ion-label>
+        Device : {{i}}
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <ion-button (click)="Disconnect()" expand="block" color="danger" class="element">Disconnect</ion-button>
+
+</ion-content>

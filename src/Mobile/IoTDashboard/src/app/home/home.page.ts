@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
       this.buttonDisable = true;
 
 
-      //this.navCtrl.navigateRoot("");
+      this.navCtrl.navigateRoot("device-list");
       this.buttonDisable = false;
     }
   }
