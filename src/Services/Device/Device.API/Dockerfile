@@ -24,7 +24,7 @@ COPY *.csproj ./
 RUN dotnet restore
 COPY . ./
 RUN dotnet sonarscanner begin /k:"device-api" /o:"nomost80-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="44aa5a81c720443bb9aeba66c5bd526892317e8e" \
- /d:sonar.projectBaseDir=. /d:sonar.sources="." /d:sonar.tests="../Device.UnitTests,../Device.FunctionalTests" \
+ /d:sonar.tests="../Device.UnitTests,../Device.FunctionalTests" \
  /d:sonar.cs.vstest.reportsPaths="../Device.UnitTests/TestResults/report.trx,../Device.FunctionalTests/TestResults/report.trx"
 RUN dotnet build
 RUN dotnet test ../Device.API.UnitTests --logger "trx;LogFileName=report.trx"

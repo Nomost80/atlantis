@@ -24,7 +24,7 @@ COPY *.csproj ./
 RUN dotnet restore
 COPY . ./
 RUN dotnet sonarscanner begin /k:"calculation-api" /o:"nomost80-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="44aa5a81c720443bb9aeba66c5bd526892317e8e" \
- /d:sonar.projectBaseDir=. /d:sonar.sources="." /d:.sonar.tests="../Calculation.API.UnitTests,../Calculation.API.FunctionalTests" \
+ /d:.sonar.tests="../Calculation.API.UnitTests,../Calculation.API.FunctionalTests" \
  /d:sonar.cs.vstest.reportsPaths="../Calculation.API.UnitTests/TestResults/report.trx,../Calculation.API.FunctionalTests/TestResults/report.trx"
 RUN dotnet build
 RUN dotnet test ../Calculation.API.UnitTests --logger "trx;LogFileName=report.trx"
