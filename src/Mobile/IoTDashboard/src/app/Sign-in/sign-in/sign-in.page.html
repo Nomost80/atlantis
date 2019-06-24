@@ -1,8 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Login
-    </ion-title>
+    <ion-title>Sign-in</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,33 +8,30 @@
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label position="floating">Login</ion-label>
+      <ion-label position="floating">New Login</ion-label>
       <ion-input type="email" formControlName="email"
         [ngClass]="{ 'is-invalid': submitted && registerForm.controls.email.errors }"></ion-input>
     </ion-item>
     <div *ngIf="submitted && registerForm.controls.email.errors">
       <div *ngIf="submitted && registerForm.controls.email.errors.pattern" class="errordiv">
-        Unvalid login
+        Valid email needed
       </div>
     </div>
 
     <ion-item class="element">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">New Password</ion-label>
       <ion-input type="password" formControlName="password"
         [ngClass]="{ 'is-invalid': submitted && registerForm.controls.password.errors }"></ion-input>
     </ion-item>
     <div *ngIf="submitted && registerForm.controls.password.errors">
       <div *ngIf="submitted && registerForm.controls.password.errors" class="errordiv">
-        Unvalid password
+        6 characters needed
       </div>
     </div>
   </form>
 
+  <ion-button [disabled]="buttonDisable" (click)="Validate()" expand="block" color="success" class="element">Validate</ion-button>
 
-  <ion-button [disabled]="buttonDisable" (click)="Login()" expand="block" color="success" class="element">Login</ion-button>
-
-  <ion-button (click)="goSignIn()" expand="block" class="element">Sign-in</ion-button>
-
-
+  <ion-button (click)="goBack()" expand="block" color="danger" class="element">Back</ion-button>
 
 </ion-content>

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.page.html',
+  styleUrls: ['./sign-in.page.scss'],
 })
-export class HomePage implements OnInit {
+export class SignInPage implements OnInit {
   private submitted = false;
   private buttonDisable = false;
   private registerForm: FormGroup;
@@ -22,7 +22,6 @@ export class HomePage implements OnInit {
 
 
   ngOnInit() {
-
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.pattern(environment.regmail)]],
       password: ['', [Validators.minLength(6)]],
@@ -30,13 +29,12 @@ export class HomePage implements OnInit {
   }
 
 
-  goSignIn(){
-    this.navCtrl.navigateForward("/sign-in")
+  goBack() {
+    this.navCtrl.back();
   }
 
 
-  async Login() {
-
+  Validate() {
     if (this.onSubmit()) {
       this.buttonDisable = true;
 
@@ -55,4 +53,5 @@ export class HomePage implements OnInit {
     }
     return true;
   }
+
 }
