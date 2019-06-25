@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Graph Parameter</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Mode</ion-label>
+    <ion-select [(ngModel)]="mode" interface="popover">
+      <ion-select-option value="average">Average</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Sensor</ion-label>
+    <ion-select [(ngModel)]="sensor" interface="popover">
+      <ion-select-option value="device">Device</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Start Mesurment</ion-label>
+    <ion-datetime displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>End Mesurment</ion-label>
+    <ion-datetime displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+  </ion-item>
+
+  <ion-button (click)="Validate()" expand="block" color="success" class="element">Validate</ion-button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="goBack()" expand="block" class="element">Back</ion-button>
+  </ion-toolbar>
+</ion-footer>

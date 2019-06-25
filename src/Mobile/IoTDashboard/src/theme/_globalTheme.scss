@@ -16,6 +16,8 @@
     .element {
 
         margin-top: 2vh;
+        margin-left: 1vw;
+        margin-right: 1vw;
     }
 
     .errordiv {
@@ -23,4 +25,16 @@
         color: #f04141;
         text-align: end;
         margin-right: 1vh;
+    }
+
+    .buttonLeft  {
+
+      width: 65%;
+      float: left;
+    }
+  
+    .buttonRight  {
+  
+      width: 30%;
+      float: right;
     }

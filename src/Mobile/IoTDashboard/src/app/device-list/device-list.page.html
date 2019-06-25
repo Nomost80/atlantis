@@ -6,10 +6,9 @@
 
 <ion-content>
 
-  <ion-button (click)="goGraph()" expand="block" class="element">Graph</ion-button>
+  <!--<ion-button (click)="goGraph()" expand="block" class="element">Graph</ion-button>-->
 
   <div *ngFor="let i of array1">
-
     <ion-item (click)="goDevice()">
       <ion-label>
         Device : {{i}}
@@ -17,6 +16,14 @@
     </ion-item>
   </div>
 
-  <ion-button (click)="Disconnect()" expand="block" color="danger" class="element">Disconnect</ion-button>
-
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="presentAlert()" expand="block" color="danger" class="element buttonLeft">Disconnect
+    </ion-button>
+
+    <ion-button (click)="LoadDevice()" expand="block" color="success" class="element buttonRight">
+      Refresh</ion-button>
+  </ion-toolbar>
+</ion-footer>

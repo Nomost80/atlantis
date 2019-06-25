@@ -1,35 +1,51 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>device info</ion-title>
-    <ion-buttons>
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ion-title>Device info</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-card>
     <ion-item>
-      <ion-label>Name</ion-label>
+      <ion-label>Name : </ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Type</ion-label>
+      <ion-label>Type : </ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Last Metric</ion-label>
+      <ion-label>Last Metric : </ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Led</ion-label>
+      <ion-label>Led : </ion-label>
+      <!--<ion-button (click)="ToggleLed()" slot="end" class="element">Toggle</ion-button>-->
+      <ion-toggle></ion-toggle>
     </ion-item>
 
+    <!--
+    <ion-item>
+      <ion-range pin="true"></ion-range>
+    </ion-item>
+    -->
+  </ion-card>
 
+  <ion-card>
+    <canvas #lineCanvas style="margin-top: 2vh;" class="element"></canvas>
 
-    <ion-button (click)="Refresh()" expand="block" color="success" class="element">Refresh</ion-button>
+    <ion-item>
+      <ion-button (click)="goGraphParameter()" slot="end" color="light" class="element">Edit Graph</ion-button>
+    </ion-item>
 
-    <ion-button (click)="ToggleLed()" expand="block" class="element">Toggle LED</ion-button>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="goBack()" expand="block" class="element buttonLeft">Back</ion-button>
+
+    <ion-button (click)="InfoDevice()" expand="block" color="success" class="element buttonRight">
+      Refresh</ion-button>
+  </ion-toolbar>
+</ion-footer>

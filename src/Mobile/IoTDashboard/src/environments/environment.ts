@@ -6,6 +6,7 @@ export const environment = {
   production: false,
 
   regmail: /^[^ @]+@[^ @]+\.[^ @]{2,}/,
+  apiurl: "https://api.jikan.moe/v3",
 };
 
 /*

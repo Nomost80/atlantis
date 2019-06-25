@@ -1,14 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>device graph</ion-title>
-    <ion-buttons>
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ion-title>Device Graph</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-
-
+  <canvas #lineCanvas style="margin-top: 2vh;" class="element"></canvas>
+  
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="goBack()" expand="block" class="element">Back</ion-button>
+  </ion-toolbar>
+</ion-footer>

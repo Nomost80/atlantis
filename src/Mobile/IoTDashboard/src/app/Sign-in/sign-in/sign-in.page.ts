@@ -38,10 +38,24 @@ export class SignInPage implements OnInit {
     if (this.onSubmit()) {
       this.buttonDisable = true;
 
+      //Appel API
+/*
+      this.apiservice.apiSignIn("login", "pass")
+        .subscribe(valRetour => {
 
-      //this.navCtrl.navigateRoot("");
+          if (valRetour['success']) {
+            //OK
+
+            this.navCtrl.navigateRoot("/device-list");
+          }
+        }, error => {
+          //Popup Erreur
+        })
+*/
       this.buttonDisable = false;
     }
+    //TEST
+    this.navCtrl.navigateRoot("/device-list");
   }
 
 
