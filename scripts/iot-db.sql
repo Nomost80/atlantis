@@ -1,11 +1,9 @@
-# Mode Contrainte Projet
-
 CREATE DATABASE iot;
 
 USE iot;
 
 CREATE TABLE user (
-    id INTEGER NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     CONSTRAINT user_pk PRIMARY KEY (id)
 ) DEFAULT charset=utf8;
 
@@ -16,13 +14,22 @@ CREATE TABLE device (
     CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES user(id)
 ) DEFAULT charset=utf8;
 
+CREATE TABLE sensor (
+    name VARCHAR(50) NOT NULL,
+    pin INT NOT NULL,
+    type VARCHAR(25) NOT NULL,
+    device_mac_address VARCHAR(30) NOT NULL,
+    CONSTRAINT sensor_pk PRIMARY KEY (name),
+    CONSTRAINT device_fk FOREIGN KEY (device_mac_address) REFERENCES device(mac_address)
+) DEFAULT charset=utf8;
+
 CREATE TABLE metric (
     id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    metric_date DATETIME NOT NULL,
-    metric_value FLOAT NOT NULL,
-    device_type VARCHAR(50) NOT NULL,
-    mac_address VARCHAR(30) NOT NULL,
+    date DATETIME NOT NULL,
+    value FLOAT NOT NULL,
+    sensor_name VARCHAR(50) NOT NULL,
     CONSTRAINT metric_pk PRIMARY KEY (id),
-    CONSTRAINT device_fk FOREIGN KEY (mac_address) REFERENCES device(mac_address)
+    CONSTRAINT sensor_fk FOREIGN KEY (sensor_name) REFERENCES sensor(name)
 ) DEFAULT charset=utf8;
+
+
