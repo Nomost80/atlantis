@@ -2,9 +2,10 @@ package  exakis.atlantis.admin;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
 
-public interface DeviceRepository extends CrudRepository<Device, Integer> {
-
+public interface DeviceRepository extends CrudRepository<Device, String> {
 }
