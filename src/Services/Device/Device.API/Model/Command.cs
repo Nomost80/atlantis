@@ -7,7 +7,7 @@ namespace Device.API.Model
         private String macAddress;
         private String name;
         private float value;
-
+    
         public string MacAddress
         {
             get => macAddress;
