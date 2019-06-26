@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Update User</title>
+    <title>Update Device</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -11,10 +11,11 @@
 </head>
 <body>
 <div class="container my-5">
-    <h2 class="mb-5">Update Device</h2>
+    <h2 class="mb-5">New Device</h2>
     <div class="row">
         <div class="col-md-6">
-            <form action="#" th:action="@{device/update/{macAdress}(macAdress=${device.macAdress})}" th:object="${device}" method="post">
+            <body>
+            <form action="#" th:action="@{/updatedevice}" th:object="${device}" method="post">
                 <div class="row">
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -24,21 +25,22 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="col-form-label">User</label>
-                            <select class="form-control" th:field="*{user}">
-                                <option th:each="user : ${users}"
-                                        th:value="${user.id}"
-                                        th:utext="${user.id}">
-                                </option>
-                            </select>
+                                <select class="form-control" th:field="*{user}">
+                                    <option th:each="user : ${users}"
+                                            th:value="${user.id}"
+                                            th:utext="${user.id}">
+                                    </option>
+                                </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mt-5">
-                        <input type="submit" class="btn btn-primary" value="Add Device">
+                        <input type="submit" class="btn btn-primary" value="Update Device">
                     </div>
                 </div>
             </form>
+            </body>
         </div>
     </div>
 </div>

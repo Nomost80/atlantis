@@ -35,13 +35,13 @@ public class DeviceController {
         Device device = deviceRepository.findById(macAdress).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + macAdress));
         model.addAttribute("device", device);
         model.addAttribute("users", userRepository.findAll());
-        return "add-device";
+        return "update-device";
     }
 
-    @PostMapping("/adddevice")
-    public String addDevice(@Valid Device device, BindingResult result, Model model) {
+    @PostMapping("/updatedevice")
+    public String updateDevice(@Valid Device device, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "adddevice";
+            return "update-device";
         }
         deviceRepository.save(device);
         model.addAttribute("devices", deviceRepository.findAll());
