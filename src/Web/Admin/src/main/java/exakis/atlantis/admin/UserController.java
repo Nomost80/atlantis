@@ -27,7 +27,7 @@ public class UserController {
         this.deviceRepository = deviceRepository;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String showIndex(User user, Model model) {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("devices", deviceRepository.findAll());
@@ -74,5 +74,5 @@ public class UserController {
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());
         return "index";
-    }
+    }*/
 }

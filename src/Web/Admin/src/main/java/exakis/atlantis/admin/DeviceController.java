@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class DeviceController {
 
-    private final UserRepository userRepository;
+    private final exakis.atlantis.admin.UserRepository userRepository;
     private final DeviceRepository deviceRepository;
 
     @Autowired
@@ -23,8 +23,17 @@ public class DeviceController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/add-device")
-    public String showSignUpForm(Device device, Model model) {
+    @GetMapping("/")
+    public String showIndex(User user, Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("devices", deviceRepository.findAll());
+        return "index";
+    }
+
+    @GetMapping("device/edit/{macAdress}")
+    public String showUpdateForm(@PathVariable("macAdress") String macAdress, Model model) {
+        Device device = deviceRepository.findById(macAdress).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + macAdress));
+        model.addAttribute("device", device);
         model.addAttribute("users", userRepository.findAll());
         return "add-device";
     }
@@ -32,20 +41,11 @@ public class DeviceController {
     @PostMapping("/adddevice")
     public String addDevice(@Valid Device device, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "add-device";
+            return "adddevice";
         }
-        
         deviceRepository.save(device);
         model.addAttribute("devices", deviceRepository.findAll());
-        return "index";
-    }
-
-
-    @GetMapping("device/delete/{macAddress}")
-    public String deleteDevice(@PathVariable("macAddress") String macAddress, Model model) {
-        Device device = deviceRepository.findById(macAddress).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + macAddress));
-        deviceRepository.delete(device);
-        model.addAttribute("devices", deviceRepository.findAll());
+        model.addAttribute("users", userRepository.findAll());
         return "index";
     }
 }

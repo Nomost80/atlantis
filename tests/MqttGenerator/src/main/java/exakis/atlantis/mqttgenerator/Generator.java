@@ -43,6 +43,7 @@ public class Generator {
                 String content = mapper.writeValueAsString(metric);
                 MqttMessage message = new MqttMessage(content.getBytes());
                 message.setQos(qos);
+                message.setRetained(true);
                 mqttClient.publish(topic, message);
             }
         } catch (MqttException e) {
