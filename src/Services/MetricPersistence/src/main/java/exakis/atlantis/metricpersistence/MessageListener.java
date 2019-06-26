@@ -27,6 +27,7 @@ public class MessageListener implements IMqttMessageListener {
             Sensor sensor = new Sensor();
             sensor.setName(metricDTO.getSensorName());
             sensor.setPin(metricDTO.getSensorPin());
+            sensor.setType(metricDTO.getSensorType());
             sensor.setDevice(device);
 
             Metric metric = new Metric();
