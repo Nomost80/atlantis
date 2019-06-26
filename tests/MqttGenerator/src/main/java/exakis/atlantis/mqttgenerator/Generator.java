@@ -34,10 +34,10 @@ public class Generator {
             for (int i = 0; i < n; i++) {
                 Metric metric = new Metric();
                 metric.setMacAddress(faker.random().hex(12));
-                metric.setName(faker.name().name());
+                metric.setSensorPin(faker.random().nextInt(1, 10));
+                metric.setSensorName(metric.getMacAddress() + faker.name().name());
                 metric.setMetricDate(faker.date().between(previousYear, today));
                 metric.setMetricValue(faker.random().nextInt(0, 255));
-                metric.setDeviceType("humiditySensor");
 
                 String content = mapper.writeValueAsString(metric);
                 MqttMessage message = new MqttMessage(content.getBytes());

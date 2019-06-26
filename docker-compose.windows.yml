@@ -8,6 +8,8 @@ services:
 
   emqx_broker:
     image: emqx/emqx
+    #    volumes:
+    #      - "//C/docker-data/emqx:/opt/emqx/etc"
     ports:
       - "18083:18083"
       - "8083:8083"
@@ -21,7 +23,7 @@ services:
       MYSQL_USER: "cesi"
       MYSQL_PASSWORD: "cesi_pwd"
     volumes:
-      - "/srv/iot_db:/var/lib/mysql"
+      - "//C/docker-data/iot_db:/var/lib/mysql"
     ports:
       - "7327:3306"
 
@@ -33,6 +35,6 @@ services:
       MYSQL_USER: "cesi"
       MYSQL_PASSWORD: "cesi_pwd"
     volumes:
-      - "/srv/calculations_db:/var/lib/mysql"
+      - "//C/docker-data/calculations_db:/var/lib/mysql"
     ports:
       - "7328:3306"
