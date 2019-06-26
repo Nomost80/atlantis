@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { ApiServiceService } from '../Services/api-service/api-service.service';
+import { ValueTransformer } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-graph-parameter',
@@ -10,16 +10,56 @@ import { ApiServiceService } from '../Services/api-service/api-service.service';
 })
 export class GraphParameterPage implements OnInit {
 
+  sensor: any[] = [
+    {
+      id: 1,
+      type: 'Heat',
+    },
+    {
+      id: 2,
+      type: 'Light',
+    },
+    {
+      id: 3,
+      type: 'Humidity',
+    }
+  ];
 
+  public test = " nom"
 
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
-    private apiservice: ApiServiceService,
   ) { }
 
 
   ngOnInit() {
+    this.getStorage();
+  }
+  private parametres = [
+    {
+      "namedevice": "test",
+      "mode": "",
+      "sensor": "",
+      "startdate": "",
+      "enddate": ""
+    }
+  ];
+
+  getStorage() {
+    Promise.all([this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('sensor'), this.storage.get('startdate'), this.storage.get('enddate')]).then(values => {
+
+      if (values[0] && values[0] !== "") {
+
+        this.parametres['namedevice'] = values[0];
+        this.parametres['mode'] = values[1];
+        this.parametres['sensor'] = values[2];
+        this.parametres['startdate'] = values[3];
+        this.parametres['enddate'] = values[4];
+
+        console.log(values);
+      }
+    });
   }
 
 
@@ -30,25 +70,13 @@ export class GraphParameterPage implements OnInit {
 
   Validate() {
 
+    this.storage.set('namedevice', "");
     this.storage.set('mode', "");
     this.storage.set('sensor', "");
     this.storage.set('startdate', "");
     this.storage.set('enddate', "");
 
-    //API
-/*
-    this.apiservice.apiGetGraph("login", "pass", "mode", "sensor", "startdate", "enddate")
-      .subscribe(valRetour => {
-
-        if (valRetour['success']) {
-          //OK
-
-          this.navCtrl.navigateBack("/device-list");
-        }
-      }, error => {
-        //Popup Erreur
-      })
-*/
+    this.navCtrl.navigateBack("/device-list");
   }
 
 

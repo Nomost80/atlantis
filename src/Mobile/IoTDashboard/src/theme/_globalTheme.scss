@@ -1,40 +1,40 @@
-  //********************
-  //      VARIABLES
-  //********************
+//********************
+//      VARIABLES
+//********************
 
+//********************
+//      MIXIN
+//********************
 
-  //********************
-  //      MIXIN
-  //********************
+//********************
+//      CLASS
+//********************
 
-  
-  //********************
-  //      CLASS
-  //********************
-  
+ion-title{
 
-    .element {
+  color: #3880ff;
+  font-weight: bold;
+}
 
-        margin-top: 2vh;
-        margin-left: 1vw;
-        margin-right: 1vw;
-    }
+.element {
+  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  background-color: transparent;
+}
 
-    .errordiv {
-        
-        color: #f04141;
-        text-align: end;
-        margin-right: 1vh;
-    }
+.errordiv {
+  color: #f04141;
+  text-align: end;
+  margin-right: 1vh;
+}
 
-    .buttonLeft  {
+.buttonLeft {
+  width: 65%;
+  float: left;
+}
 
-      width: 65%;
-      float: left;
-    }
-  
-    .buttonRight  {
-  
-      width: 30%;
-      float: right;
-    }
+.buttonRight {
+  width: 30%;
+  float: right;
+}

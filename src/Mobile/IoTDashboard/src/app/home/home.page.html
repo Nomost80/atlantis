@@ -1,41 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Login
-    </ion-title>
+    <img src="assets/atlantis-logo.png" style="width: 20%;">
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating">Login</ion-label>
-      <ion-input type="email" formControlName="email"
-        [ngClass]="{ 'is-invalid': submitted && registerForm.controls.email.errors }"></ion-input>
-    </ion-item>
-    <div *ngIf="submitted && registerForm.controls.email.errors">
-      <div *ngIf="submitted && registerForm.controls.email.errors.pattern" class="errordiv">
-        Unvalid login
-      </div>
-    </div>
+  <div>
+    <img src="assets/algeco-logo.png" class="logo">
+    <img src="assets/exakisnelite-logo.png" class="logo">
+    <ion-text>
+      <h3 class="text">Login or create an account to use the application</h3>
+    </ion-text>
 
-    <ion-item class="element">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" formControlName="password"
-        [ngClass]="{ 'is-invalid': submitted && registerForm.controls.password.errors }"></ion-input>
-    </ion-item>
-    <div *ngIf="submitted && registerForm.controls.password.errors">
-      <div *ngIf="submitted && registerForm.controls.password.errors" class="errordiv">
-        Unvalid password
-      </div>
-    </div>
-  </form>
+    <ion-button (click)="login()" expand="block" size="large" fill="outline" color="success" class="element" class="buttonlogin">
+      Authentication</ion-button>
+  </div>
 
+  <ion-button (click)="test()"></ion-button>
 
-  <ion-button [disabled]="buttonDisable" (click)="Login()" expand="block" color="success" class="element">Login</ion-button>
-
-  <ion-button (click)="goSignIn()" expand="block" class="element">Sign-in</ion-button>
-  
+<ion-button (click)="testest()">testest</ion-button>
 
 </ion-content>

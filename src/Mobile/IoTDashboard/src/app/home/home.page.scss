@@ -1,1 +1,18 @@
-@import 'src/theme/globalTheme';
+@import "src/theme/globalTheme";
+
+.logo {
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text{
+  text-align: center;
+}
+
+.buttonlogin{
+
+  text-transform: uppercase;
+  text-align: center;  
+}

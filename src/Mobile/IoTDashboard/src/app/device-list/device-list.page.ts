@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ApiServiceService } from '../Services/api-service/api-service.service';
+import { AllServiceService } from '../Services/all-service/all-service.service';
+
 
 
 @Component({
@@ -11,7 +13,7 @@ import { ApiServiceService } from '../Services/api-service/api-service.service';
 })
 export class DeviceListPage implements OnInit {
 
-  public array1: any = [1, 2, 3, 4, 5];
+  public listdevice: any = [1, 2, 3, 4, 5];
 
 
 
@@ -20,6 +22,7 @@ export class DeviceListPage implements OnInit {
     public navCtrl: NavController,
     public alertController: AlertController,
     private apiservice: ApiServiceService,
+    private allservice: AllServiceService,
   ) { }
 
 
@@ -33,38 +36,40 @@ export class DeviceListPage implements OnInit {
   }
 
 
-  goDevice() {
+  goDevice(device) {
 
-    //stock le nom du device
+    this.storage.set('namedevice', device);
     this.navCtrl.navigateForward("/device-info");
   }
 
   Disconnect() {
 
+    //API deco
 
     this.navCtrl.navigateBack("/home");
   }
 
 
   async LoadDevice() {
-    Promise.all([this.storage.get('token'), this.storage.get('iduser')]).then(values => {
+    await this.allservice.Spinner(true);
+
+    Promise.all([this.storage.get('token'), this.storage.get('refresh'), this.storage.get('iduser')]).then(values => {
 
       if (values[0] && values[0] !== "") {
 
+        this.apiservice.apiGetDevicesList(values[0], values[1], values[2])
+          .subscribe(valRetour => {
+
+            if (valRetour['success']) {
+              //OK
+            }
+          }, error => {
+            //Popup Erreur
+          })
       }
+      this.allservice.Spinner(false);
     });
     //Appel API
-/*
-    this.apiservice.apiGetDevicesList("token", "iduser")
-      .subscribe(valRetour => {
-
-        if (valRetour['success']) {
-          //OK
-        }
-      }, error => {
-        //Popup Erreur
-      })
-*/
   }
 
 
