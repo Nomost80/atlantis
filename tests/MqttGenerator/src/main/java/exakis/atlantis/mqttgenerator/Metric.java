@@ -3,22 +3,48 @@ package exakis.atlantis.mqttgenerator;
 import java.util.Date;
 
 public class Metric {
-    private String name;
+    private String macAddress;
+
+    private int sensorPin;
+
+    private String sensorName;
+
+    private String sensorType;
 
     private Date metricDate;
 
     private float metricValue;
 
-    private String deviceType;
-
-    private String macAddress;
-
-    public String getName() {
-        return name;
+    public String getMacAddress() {
+        return macAddress;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
+    }
+
+    public int getSensorPin() {
+        return sensorPin;
+    }
+
+    public void setSensorPin(int sensorPin) {
+        this.sensorPin = sensorPin;
+    }
+
+    public String getSensorName() {
+        return sensorName;
+    }
+
+    public void setSensorName(String sensorName) {
+        this.sensorName = sensorName;
+    }
+
+    public String getSensorType() {
+        return sensorType;
+    }
+
+    public void setSensorType(String sensorType) {
+        this.sensorType = sensorType;
     }
 
     public Date getMetricDate() {
@@ -35,21 +61,5 @@ public class Metric {
 
     public void setMetricValue(float metricValue) {
         this.metricValue = metricValue;
-    }
-
-    public String getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
-    }
-
-    public String getMacAddress() {
-        return macAddress;
-    }
-
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
     }
 }
