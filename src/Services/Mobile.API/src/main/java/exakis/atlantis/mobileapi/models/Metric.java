@@ -9,18 +9,14 @@ public class Metric {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
-
     @Temporal(TemporalType.DATE)
-    private Date metricDate;
+    private Date date;
 
-    private float metricValue;
+    private float value;
 
-    private String deviceType;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "macAddress", referencedColumnName = "macAddress")
-    private Device device;
+    @ManyToOne
+    @JoinColumn(name = "sensor_name", referencedColumnName = "name")
+    private Sensor sensor;
 
     public int getId() {
         return id;
@@ -30,55 +26,27 @@ public class Metric {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getDate() {
+        return date;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getMetricDate() {
-        return metricDate;
+    public float getValue() {
+        return value;
     }
 
-    public void setMetricDate(Date metricDate) {
-        this.metricDate = metricDate;
+    public void setValue(float value) {
+        this.value = value;
     }
 
-    public float getMetricValue() {
-        return metricValue;
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setMetricValue(float metricValue) {
-        this.metricValue = metricValue;
-    }
-
-    public String getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
-    }
-
-    public Device getDevice() {
-        return device;
-    }
-
-    public void setDevice(Device device) {
-        this.device = device;
-    }
-
-    @Override
-    public String toString() {
-        return "Metric{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", metricDate=" + metricDate +
-                ", metricValue=" + metricValue +
-                ", deviceType='" + deviceType + '\'' +
-                ", device=" + device +
-                '}';
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 }
