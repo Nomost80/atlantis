@@ -8,8 +8,8 @@ services:
 
   emqx_broker:
     image: emqx/emqx
-#    volumes:
-#      - "//C/docker-data/emqx:/opt/emqx/etc"
+    #    volumes:
+    #      - "//C/docker-data/emqx:/opt/emqx/etc"
     ports:
       - "18083:18083"
       - "8083:8083"

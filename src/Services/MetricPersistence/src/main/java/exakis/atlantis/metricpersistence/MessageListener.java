@@ -21,14 +21,20 @@ public class MessageListener implements IMqttMessageListener {
         System.out.println("Message received: " + content);
         try {
             MetricDTO metricDTO = this.mapper.readValue(content, this.typeReference);
-            Metric metric = new Metric();
             Device device = new Device();
             device.setMacAddress(metricDTO.getMacAddress());
-            metric.setName(metricDTO.getName());
-            metric.setMetricDate(metricDTO.getMetricDate());
-            metric.setMetricValue(metricDTO.getMetricValue());
-            metric.setDeviceType(metricDTO.getDeviceType());
-            metric.setDevice(device);
+
+            Sensor sensor = new Sensor();
+            sensor.setName(metricDTO.getSensorName());
+            sensor.setPin(metricDTO.getSensorPin());
+            sensor.setType(metricDTO.getSensorType());
+            sensor.setDevice(device);
+
+            Metric metric = new Metric();
+            metric.setDate(metricDTO.getMetricDate());
+            metric.setValue(metricDTO.getMetricValue());
+            metric.setSensor(sensor);
+
             this.metricRepository.save(metric);
         } catch (IOException e) {
             e.printStackTrace();
