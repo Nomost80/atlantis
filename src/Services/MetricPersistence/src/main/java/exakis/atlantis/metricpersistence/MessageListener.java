@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class MessageListener implements IMqttMessageListener {
@@ -31,7 +35,7 @@ public class MessageListener implements IMqttMessageListener {
             sensor.setDevice(device);
 
             Metric metric = new Metric();
-            metric.setDate(metricDTO.getMetricDate());
+            metric.setDate(new Date());
             metric.setValue(metricDTO.getMetricValue());
             metric.setSensor(sensor);
 

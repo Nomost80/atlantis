@@ -1,17 +1,13 @@
 package exakis.atlantis.metricpersistence;
 
-import java.util.Date;
-
 public class MetricDTO {
     private String macAddress;
 
-    private int sensorPin;
+    private String sensorPin;
 
     private String sensorName;
 
     private String sensorType;
-
-    private Date metricDate;
 
     private float metricValue;
 
@@ -23,11 +19,11 @@ public class MetricDTO {
         this.macAddress = macAddress;
     }
 
-    public int getSensorPin() {
+    public String getSensorPin() {
         return sensorPin;
     }
 
-    public void setSensorPin(int sensorPin) {
+    public void setSensorPin(String sensorPin) {
         this.sensorPin = sensorPin;
     }
 
@@ -45,14 +41,6 @@ public class MetricDTO {
 
     public void setSensorType(String sensorType) {
         this.sensorType = sensorType;
-    }
-
-    public Date getMetricDate() {
-        return metricDate;
-    }
-
-    public void setMetricDate(Date metricDate) {
-        this.metricDate = metricDate;
     }
 
     public float getMetricValue() {
