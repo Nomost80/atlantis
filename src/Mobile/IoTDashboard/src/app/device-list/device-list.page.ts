@@ -13,7 +13,7 @@ import { AllServiceService } from '../Services/all-service/all-service.service';
 })
 export class DeviceListPage implements OnInit {
 
-  public listdevice: any = [1, 2, 3, 4, 5];
+  public listdevice: any = ["AL244308", "AAP130138", "EVE117013", "XV258133", "YHB274494"];
 
 
 
@@ -37,7 +37,7 @@ export class DeviceListPage implements OnInit {
 
 
   goDevice(device) {
-
+    console.log(device)
     this.storage.set('namedevice', device);
     this.navCtrl.navigateForward("/device-info");
   }
@@ -88,7 +88,6 @@ export class DeviceListPage implements OnInit {
         }
       ]
     });
-
     await alert.present();
   }
 }

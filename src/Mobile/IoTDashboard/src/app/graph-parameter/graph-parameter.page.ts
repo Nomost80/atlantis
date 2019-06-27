@@ -9,8 +9,13 @@ import { ValueTransformer } from '@angular/compiler/src/util';
   styleUrls: ['./graph-parameter.page.scss'],
 })
 export class GraphParameterPage implements OnInit {
+  namedevice: any;
+  mode: any;
+  sensor: any;
+  startdate: any;
+  enddate: any;
 
-  sensor: any[] = [
+  listsensor: any[] = [
     {
       id: 1,
       type: 'Heat',
@@ -25,8 +30,6 @@ export class GraphParameterPage implements OnInit {
     }
   ];
 
-  public test = " nom"
-
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
@@ -34,31 +37,23 @@ export class GraphParameterPage implements OnInit {
 
 
   ngOnInit() {
+  }
+
+
+  ionViewWillEnter() {
     this.getStorage();
   }
-  private parametres = [
-    {
-      "namedevice": "test",
-      "mode": "",
-      "sensor": "",
-      "startdate": "",
-      "enddate": ""
-    }
-  ];
+
 
   getStorage() {
-    Promise.all([this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('sensor'), this.storage.get('startdate'), this.storage.get('enddate')]).then(values => {
+    Promise.all([this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('sensor'), this.storage.get('startdate'), this.storage.get('enddate'), this.storage.get('listsensor')]).then(values => {
 
-      if (values[0] && values[0] !== "") {
-
-        this.parametres['namedevice'] = values[0];
-        this.parametres['mode'] = values[1];
-        this.parametres['sensor'] = values[2];
-        this.parametres['startdate'] = values[3];
-        this.parametres['enddate'] = values[4];
-
-        console.log(values);
-      }
+      this.namedevice = values[0];
+      this.mode = values[1];
+      this.sensor = values[2];
+      this.startdate = values[3];
+      this.enddate = values[4];
+      this.listsensor = values[5];
     });
   }
 
@@ -69,14 +64,12 @@ export class GraphParameterPage implements OnInit {
 
 
   Validate() {
+    this.storage.set('mode', this.mode);
+    this.storage.set('sensor', this.sensor);
+    this.storage.set('startdate', this.startdate);
+    this.storage.set('enddate', this.enddate);
 
-    this.storage.set('namedevice', "");
-    this.storage.set('mode', "");
-    this.storage.set('sensor', "");
-    this.storage.set('startdate', "");
-    this.storage.set('enddate', "");
-
-    this.navCtrl.navigateBack("/device-list");
+    this.navCtrl.navigateBack("/device-info");
   }
 
 

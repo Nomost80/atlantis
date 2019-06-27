@@ -7,21 +7,21 @@
 <ion-content>
   <ion-card>
     <ion-item>
-      <ion-label>Name : </ion-label>
+      <ion-label>Name : {{this.namedevice}}</ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Type : </ion-label>
+      <ion-label>Type : {{this.type}}</ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Last Metric : </ion-label>
+      <ion-label>Last Metric : {{this.lastmetric}}</ion-label>
     </ion-item>
 
     <ion-item>
       <ion-label>Led : </ion-label>
       <!--<ion-button (click)="ToggleLed()" slot="end" class="element">Toggle</ion-button>-->
-      <ion-toggle></ion-toggle>
+      <ion-toggle [(ngModel)]="ledvalue" (ionChange)="toggleChange($event)"></ion-toggle>
     </ion-item>
 
     <!--
@@ -45,7 +45,7 @@
   <ion-toolbar>
     <ion-button (click)="goBack()" expand="block" fill="outline" class="element buttonLeft">Back</ion-button>
 
-    <ion-button (click)="InfoDevice()" expand="block" fill="outline" color="success" class="element buttonRight">
+    <ion-button (click)="infoDeviceGraph()" expand="block" fill="outline" color="success" class="element buttonRight">
       Refresh</ion-button>
   </ion-toolbar>
 </ion-footer>

@@ -8,12 +8,9 @@ import { environment } from '../../../environments/environment';
 export class ApiServiceService {
   private headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded; charset=UTF-8');
 
-  
-
   //PUBLIC
   public EmailRegex = environment.regmail;
   public LoginURL = environment.loginURL;
-
 
 
 
@@ -21,13 +18,8 @@ export class ApiServiceService {
     private httpClient: HttpClient,
   ) { }
 
-  test() {
 
-    return this.httpClient.get<any[]>('https://api.jikan.moe/v3');
-  }
-
-
-  AuthToken(code) {
+  authToken(code) {
 
     return this.httpClient.get<any[]>('???url???'+ code)
   }
@@ -48,6 +40,7 @@ export class ApiServiceService {
       })
   }
 
+
   apiGetDevice(token, refresh, iduser, devicename) {
 
     this.headers.set('Authorization', token);
@@ -63,6 +56,25 @@ export class ApiServiceService {
         //+ Token
       })
   }
+
+
+  apiSetLed(token, refresh, iduser, devicename, stateled) {
+
+    this.headers.set('Authorization', token);
+    this.headers.set('Refresh', refresh);
+
+    return this.httpClient.post<any[]>(environment.apiurl + '', {
+      token: token,
+      iduser: iduser,
+      devicename: devicename,
+      state: stateled
+    },
+      {
+        headers: this.headers
+        //+ Token
+      })
+  }
+
 
   apiGetGraph(token, refresh, iduser, devicename, mode, sensor, startdate, enddate) {
 
