@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MetricConsumer {
-    private static int qos = 1;
-    private static String broker = "ws://localhost:8083/mqtt";
+    private static int qos = 0;
+    private static String broker = "tcp://192.168.43.153:1883";
     private static String topic = "metric";
-//    private static String topic = "44:81:C0:0D:6C:E3/command";
     @Autowired private IMqttMessageListener listener;
     private final MemoryPersistence persistence = new MemoryPersistence();
 

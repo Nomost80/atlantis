@@ -5,7 +5,8 @@ namespace Device.API.Model
     public class Command
     {
         private String macAddress;
-        private String name;
+        private int pin;
+        private bool digital;
         private float value;
     
         public string MacAddress
@@ -14,10 +15,16 @@ namespace Device.API.Model
             set => macAddress = value;
         }
 
-        public string Name
+        public int Pin
         {
-            get => name;
-            set => name = value;
+            get => pin;
+            set => pin = value;
+        }
+
+        public bool Digital
+        {
+            get => digital;
+            set => digital = value;
         }
 
         public float Value

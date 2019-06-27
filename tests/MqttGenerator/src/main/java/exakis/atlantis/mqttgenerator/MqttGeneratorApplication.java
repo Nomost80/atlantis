@@ -13,6 +13,6 @@ public class MqttGeneratorApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		Generator.run(1);
+		Generator.run(50);
 	}
 }

@@ -16,7 +16,8 @@ CREATE TABLE device (
 
 CREATE TABLE sensor (
     name VARCHAR(50) NOT NULL,
-    pin INT NOT NULL,
+    pin VARCHAR(10) NOT NULL,
+    digital BOOLEAN NOT NULL,
     type VARCHAR(25) NOT NULL,
     device_mac_address VARCHAR(30) NOT NULL,
     CONSTRAINT sensor_pk PRIMARY KEY (name),

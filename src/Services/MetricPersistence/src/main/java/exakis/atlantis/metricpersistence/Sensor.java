@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @Entity
 public class Sensor {
-    private int pin;
+    private String pin;
+
+    private boolean digital;
 
     @Id @Column(length = 25)
     private String name;
@@ -15,12 +17,20 @@ public class Sensor {
     @JoinColumn(name = "device_mac_address", referencedColumnName = "macAddress")
     private Device device;
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(int pin) {
+    public void setPin(String pin) {
         this.pin = pin;
+    }
+
+    public boolean isDigital() {
+        return digital;
+    }
+
+    public void setDigital(boolean digital) {
+        this.digital = digital;
     }
 
     public String getName() {
