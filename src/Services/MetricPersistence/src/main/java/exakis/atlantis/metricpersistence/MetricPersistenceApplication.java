@@ -1,5 +1,6 @@
 package exakis.atlantis.metricpersistence;
 
+import exakis.atlantis.metricpersistence.business.MetricConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,8 +14,11 @@ import java.util.Scanner;
 @EnableJpaRepositories
 @Component
 public class MetricPersistenceApplication implements CommandLineRunner  {
-	@Autowired
 	private MetricConsumer metricConsumer;
+
+	public MetricPersistenceApplication(MetricConsumer metricConsumer) {
+		this.metricConsumer = metricConsumer;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(MetricPersistenceApplication.class, args);
