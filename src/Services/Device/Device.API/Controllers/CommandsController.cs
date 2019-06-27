@@ -15,7 +15,7 @@ namespace Device.API.Controllers
     {
         private IMqttClient _mqttClient;
         private IMqttClientOptions _options = new MqttClientOptionsBuilder()
-            .WithWebSocketServer("localhost:8083/mqtt")
+            .WithTcpServer("192.168.43.153", 1883)
             .WithProtocolVersion(MqttProtocolVersion.V311)
             .Build();
 

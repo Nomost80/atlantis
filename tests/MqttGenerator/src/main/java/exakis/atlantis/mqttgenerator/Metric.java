@@ -1,11 +1,11 @@
 package exakis.atlantis.mqttgenerator;
 
-import java.util.Date;
-
 public class Metric {
     private String macAddress;
 
     private String sensorPin;
+
+    private boolean sensorPinDigital;
 
     private String sensorName;
 
@@ -27,6 +27,14 @@ public class Metric {
 
     public void setSensorPin(String sensorPin) {
         this.sensorPin = sensorPin;
+    }
+
+    public boolean isSensorPinDigital() {
+        return sensorPinDigital;
+    }
+
+    public void setSensorPinDigital(boolean sensorPinDigital) {
+        this.sensorPinDigital = sensorPinDigital;
     }
 
     public String getSensorName() {

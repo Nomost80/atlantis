@@ -5,6 +5,8 @@ public class MetricDTO {
 
     private String sensorPin;
 
+    private boolean sensorPinDigital;
+
     private String sensorName;
 
     private String sensorType;
@@ -25,6 +27,14 @@ public class MetricDTO {
 
     public void setSensorPin(String sensorPin) {
         this.sensorPin = sensorPin;
+    }
+
+    public boolean isSensorPinDigital() {
+        return sensorPinDigital;
+    }
+
+    public void setSensorPinDigital(boolean sensorPinDigital) {
+        this.sensorPinDigital = sensorPinDigital;
     }
 
     public String getSensorName() {
