@@ -9,5 +9,5 @@ public interface DeviceRepository extends CrudRepository<Device, String> {
     Iterable<Device> findByUserId(int userId);
 
     @EntityGraph(value = "device.sensors")
-    Iterable<Metric> findByUserAndMacAddressOrder(int userId, String macAddress);
+    Iterable<Metric> findByUserIdAndMacAddress(int userId, String macAddress);
 }
