@@ -6,6 +6,8 @@ import javax.persistence.*;
 public class Sensor {
     private String pin;
 
+    private boolean digital;
+
     @Id @Column(length = 25)
     private String name;
 
@@ -21,6 +23,14 @@ public class Sensor {
 
     public void setPin(String pin) {
         this.pin = pin;
+    }
+
+    public boolean isDigital() {
+        return digital;
+    }
+
+    public void setDigital(boolean digital) {
+        this.digital = digital;
     }
 
     public String getName() {
