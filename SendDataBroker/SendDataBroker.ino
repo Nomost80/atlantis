@@ -51,6 +51,24 @@ void callback(char* topic, byte* payload, unsigned int length)
   DynamicJsonDocument doc2(512);
   deserializeJson(doc2, payload, length);
 
+  const char* MacAddress = doc2["MacAddress"];
+  int pin = doc2["Pin"];
+  bool digital = doc2["Digital"];
+  int value = doc2["Value"];
+
+  Serial.println(pin);
+  Serial.println(digital);
+
+  if(digital == true)
+  {
+    Serial.println("Test");
+    digitalWrite(pin,value);
+  }
+  else
+  {
+    analogWrite(pin,value);
+  }
+
 
   Serial.println();
   Serial.println("----------------");
@@ -87,7 +105,7 @@ int photocellReading;
 
 void setup() 
 {
-  pinMode(BUILTIN_LED, OUTPUT);     
+  pinMode(2, OUTPUT);     
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
