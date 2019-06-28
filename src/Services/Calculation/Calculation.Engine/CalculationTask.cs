@@ -8,18 +8,30 @@ namespace Calculation.Engine
 {
     public class CalculationTask : ICalculationTask
     {
-        private ConcurrentDictionary<String, Statistic> meansBySensor;
+        private ConcurrentDictionary<String, Statistic> _meansBySensor;
 
-        public void run(object state)
+        public ConcurrentDictionary<string, Statistic> GetMeansBySensor
+        {
+            get => _meansBySensor;
+            set => _meansBySensor = value;
+        }
+
+        public CalculationTask()
+        {
+            _meansBySensor = new ConcurrentDictionary<string, Statistic>();
+        }
+        
+        public void Run(object state)
         {
             Console.WriteLine("calculation task started");
             Metric metric = (Metric) state;
-            this.meansBySensor.AddOrUpdate(
+            _meansBySensor.AddOrUpdate(
                 metric.SensorName,
                 k => new Statistic
                 {
                     SensorName = k,
                     Count = 1,
+                    Sum = metric.MetricValue,
                     Value = metric.MetricValue,
                     StartAt = DateTime.Now,
                     EndAt = DateTime.Now

@@ -6,7 +6,7 @@ namespace Calculation.Engine.dto
     {
         private String macAddress;
         private String sensorName;
-        private int sensorPin;
+        private String sensorPin;
         private bool sensorDigital;
         private String sensorType;
         private float metricValue;
@@ -23,7 +23,7 @@ namespace Calculation.Engine.dto
             set => sensorName = value;
         }
 
-        public int SensorPin
+        public String SensorPin
         {
             get => sensorPin;
             set => sensorPin = value;

@@ -1,15 +1,38 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Calculation.Engine.models
 {
     public class Statistic
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        private int id;
+        
+        [Required]
         private String sensorName;
+
         private float sum;
+        
         private int count;
+        
+        [Required]
         private float value;
+        
+        [Required]
         private DateTime startAt;
+        
+        [Required]
         private DateTime endAt;
+        
+        private StatisticType statisticType;
+
+        public int Id
+        {
+            get => id;
+            set => id = value;
+        }
 
         public string SensorName
         {
@@ -45,6 +68,12 @@ namespace Calculation.Engine.models
         {
             get => endAt;
             set => endAt = value;
+        }
+
+        public StatisticType StatisticType
+        {
+            get => statisticType;
+            set => statisticType = value;
         }
 
         public override string ToString()
