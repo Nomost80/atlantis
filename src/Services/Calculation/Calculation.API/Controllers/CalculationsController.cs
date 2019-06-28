@@ -42,27 +42,34 @@ namespace Calculation.API.Controllers
                 
                 switch (groupBy)
                 {
-                    case "hour":
-                        return statistics
-                            .Where(s => s.EndAt.Day == when)
-                            .GroupBy(
-                                s => s.EndAt.Hour, 
-                                (i, enumerable) => new GroupedStatisticDto
-                                    {
-                                        Key = i, 
-                                        Value = enumerable.Sum(e => e.Value) / enumerable.Count()
-                                    }
-                            )
-                            .ToList();
                     case "day":
-                        return null;
+                        groupedStatistics = statistics
+                            .Where(s => s.EndAt.Month == when)
+                            .GroupBy(s => s.EndAt.Day);
+                        break;
                     case "month":
-                        return null;
+                        groupedStatistics = statistics
+                            .Where(s => s.EndAt.Year == when)
+                            .GroupBy(s => s.EndAt.Month);
+                        break;
                     case "year":
-                        return null;
+                        groupedStatistics = statistics.GroupBy(s => s.EndAt.Year);
+                        break;
                     default:
-                        return null;
+                        groupedStatistics = statistics
+                            .Where(s => s.EndAt.Day == when)
+                            .GroupBy(s => s.EndAt.Hour);
+                        break;
                 }
+
+                return groupedStatistics
+                    .Select(group => new GroupedStatisticDto
+                        {
+                            Key = group.Key,
+                            Value = group.Sum(e => e.Value) / group.Count()
+                        }
+                    )
+                    .ToList();
             }
         }
     }
