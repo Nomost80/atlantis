@@ -1,4 +1,4 @@
-package exakis.atlantis.metricpersistence;
+package exakis.atlantis.metricpersistence.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

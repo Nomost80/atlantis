@@ -1,7 +1,6 @@
-package exakis.atlantis.metricpersistence;
+package exakis.atlantis.metricpersistence.model;
 
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity

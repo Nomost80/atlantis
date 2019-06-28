@@ -6,7 +6,11 @@ namespace Calculation.Engine
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MetricConsumer metricConsumer = new MetricConsumer();
+            metricConsumer.listen();
+            
+            Console.WriteLine("Press any key to close the application.");
+            Console.ReadLine();
         }
     }
 }
