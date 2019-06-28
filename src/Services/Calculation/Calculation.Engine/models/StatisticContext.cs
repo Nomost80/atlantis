@@ -1,0 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+
+namespace Calculation.Engine.models
+{
+    public class StatisticContext : DbContext
+    {
+        public DbSet<Statistic> Statistics { get; set; }
+        public DbSet<StatisticType> StatisticTypes { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySQL(@"server=localhost;port=7328;database=calculations;user=root;password=root;");
+        }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Statistic>(entity =>
+            {
+                entity.HasOne(s => s.StatisticType);
+                entity.Ignore(s => s.Count);
+                entity.Ignore(s => s.Sum);
+            });
+
+            modelBuilder.Entity<StatisticType>(entity =>
+            {
+                entity.HasData(
+                    new StatisticType {Id = 1, Name = "Mean"}
+                );
+            });
+        }
+    }
+}
