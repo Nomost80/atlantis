@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Calculation.Engine.models
+namespace Calculation.API.models
 {
     public class StatisticContext : DbContext
     {

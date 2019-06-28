@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Calculation.Engine.models
+namespace Calculation.API.models
 {
     public class Statistic
     {

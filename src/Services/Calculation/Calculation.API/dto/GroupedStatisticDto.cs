@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Calculation.Engine.models;
-
 namespace Calculation.API.dto
 {
     public class GroupedStatisticDto
