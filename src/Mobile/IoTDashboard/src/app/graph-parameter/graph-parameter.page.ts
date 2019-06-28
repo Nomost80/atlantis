@@ -9,13 +9,13 @@ import { ValueTransformer } from '@angular/compiler/src/util';
   styleUrls: ['./graph-parameter.page.scss'],
 })
 export class GraphParameterPage implements OnInit {
-  namedevice: any;
-  mode: any;
-  sensor: any;
-  startdate: any;
-  enddate: any;
+  private namedevice: any;
+  private mode: any;
+  private sensor: any;
+  private startdate: any;
+  private enddate: any;
 
-  listsensor: any[] = [
+  private listsensor: any[] = [
     {
       id: 1,
       type: 'Heat',

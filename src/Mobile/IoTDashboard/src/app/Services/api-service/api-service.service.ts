@@ -18,17 +18,10 @@ export class ApiServiceService {
     private httpClient: HttpClient,
   ) { }
 
-
-  authToken(code) {
-
-    return this.httpClient.get<any[]>('???url???'+ code)
-  }
-
-
-  apiGetDevicesList(token, refresh, iduser) {
+  
+  apiGetDevicesList(token, iduser) {
 
     this.headers.set('Authorization', token);
-    this.headers.set('Refresh', refresh);
 
     return this.httpClient.post<any[]>(environment.apiurl + '', {
       token: token,
@@ -41,10 +34,9 @@ export class ApiServiceService {
   }
 
 
-  apiGetDevice(token, refresh, iduser, devicename) {
+  apiGetDevice(token, iduser, devicename) {
 
     this.headers.set('Authorization', token);
-    this.headers.set('Refresh', refresh);
 
     return this.httpClient.post<any[]>(environment.apiurl + '', {
       token: token,
@@ -58,10 +50,9 @@ export class ApiServiceService {
   }
 
 
-  apiSetLed(token, refresh, iduser, devicename, stateled) {
+  apiSetLed(token, iduser, devicename, stateled) {
 
     this.headers.set('Authorization', token);
-    this.headers.set('Refresh', refresh);
 
     return this.httpClient.post<any[]>(environment.apiurl + '', {
       token: token,
@@ -76,10 +67,9 @@ export class ApiServiceService {
   }
 
 
-  apiGetGraph(token, refresh, iduser, devicename, mode, sensor, startdate, enddate) {
+  apiGetGraph(token, iduser, devicename, mode, sensor, startdate, enddate) {
 
     this.headers.set('Authorization', token);
-    this.headers.set('Refresh', refresh);
 
     return this.httpClient.post<any[]>(environment.apiurl + '', {
       token: token,

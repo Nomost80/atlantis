@@ -13,7 +13,7 @@ import { AllServiceService } from '../Services/all-service/all-service.service';
 })
 export class DeviceListPage implements OnInit {
 
-  public listdevice: any = ["AL244308", "AAP130138", "EVE117013", "XV258133", "YHB274494"];
+  private listdevice: any = ["AL244308", "AAP130138", "EVE117013", "XV258133", "YHB274494"];
 
 
 
@@ -37,15 +37,14 @@ export class DeviceListPage implements OnInit {
 
 
   goDevice(device) {
-    console.log(device)
+
     this.storage.set('namedevice', device);
     this.navCtrl.navigateForward("/device-info");
   }
 
   Disconnect() {
 
-    //API deco
-
+    this.storage.clear();
     this.navCtrl.navigateBack("/home");
   }
 
@@ -53,11 +52,11 @@ export class DeviceListPage implements OnInit {
   async LoadDevice() {
     await this.allservice.Spinner(true);
 
-    Promise.all([this.storage.get('token'), this.storage.get('refresh'), this.storage.get('iduser')]).then(values => {
+    Promise.all([this.storage.get('token'), this.storage.get('oid')]).then(values => {
 
       if (values[0] && values[0] !== "") {
 
-        this.apiservice.apiGetDevicesList(values[0], values[1], values[2])
+        this.apiservice.apiGetDevicesList(values[0], values[1])
           .subscribe(valRetour => {
 
             if (valRetour['success']) {
@@ -69,7 +68,6 @@ export class DeviceListPage implements OnInit {
       }
       this.allservice.Spinner(false);
     });
-    //Appel API
   }
 
 

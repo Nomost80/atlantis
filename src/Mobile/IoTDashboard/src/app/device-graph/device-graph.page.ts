@@ -13,6 +13,7 @@ export class DeviceGraphPage implements OnInit {
   lineChart: any;
 
 
+  
 
   constructor(
     public navCtrl: NavController,
