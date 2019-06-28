@@ -4,6 +4,7 @@
     <ProjectGuid>{457068F4-EBC3-4CDE-A0A0-AAD524360288}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

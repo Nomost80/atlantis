@@ -1,6 +1,6 @@
 using System;
 
-namespace Calculation.Engine
+namespace Calculation.Engine.dto
 {
     public class Metric
     {
