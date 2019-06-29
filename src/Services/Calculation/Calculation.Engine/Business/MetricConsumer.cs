@@ -5,7 +5,7 @@ using MQTTnet.Formatter;
 using Quartz;
 using Quartz.Impl;
 
-namespace Calculation.Engine
+namespace Calculation.Engine.Business
 {
     public class MetricConsumer
     {
@@ -16,7 +16,7 @@ namespace Calculation.Engine
         {
             _mqttClient = new MqttFactory().CreateMqttClient();
             _mqttClientOptions = new MqttClientOptionsBuilder()
-                .WithTcpServer("192.168.43.153", 1883)
+                .WithTcpServer("localhost", 1883)
                 .WithProtocolVersion(MqttProtocolVersion.V311)
                 .Build();
         }
@@ -26,14 +26,14 @@ namespace Calculation.Engine
             await _mqttClient.ConnectAsync(_mqttClientOptions);
             await _mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("metric").WithAtMostOnceQoS().Build());
             
-            CalculationTask calculationTask = new CalculationTask();
+            NewCalculationTask calculationTask = new NewCalculationTask();
             _mqttClient.ApplicationMessageReceivedHandler = new MessageListener(calculationTask);
             
             StdSchedulerFactory schedulerFactory = new StdSchedulerFactory();
             IScheduler scheduler = await schedulerFactory.GetScheduler();
             await scheduler.Start();
             
-            IJobDetail job = JobBuilder.Create<DbSaver>()
+            IJobDetail job = JobBuilder.Create<NewDbSaver>()
                 .WithIdentity("db-saver", "group1")
                 .Build();
             job.JobDataMap.Put("calculation", calculationTask);
@@ -42,7 +42,7 @@ namespace Calculation.Engine
                 .WithIdentity("hourly-trigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(60)
+                    .WithIntervalInSeconds(20)
                     .RepeatForever())
                 .Build();
 
