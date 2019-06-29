@@ -51,11 +51,15 @@ export class LogServiceService {
 
     browser.on('loadstart').subscribe(value => {
 
-      this.storage.clear();
-      this.navCtrl.navigateBack("/home");
+    console.log(value.url)      
 
-      this.allservice.Spinner(false);
-      browser.close();
+      if (value.url == "http://localhost/") {
+        this.storage.clear();
+        this.navCtrl.navigateBack("/home");
+
+        this.allservice.Spinner(false);
+        browser.close();
+      }
     });
   }
 }

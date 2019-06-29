@@ -14,7 +14,7 @@ import { LogServiceService } from '../Services/log-service/log-service.service';
 })
 export class DeviceListPage implements OnInit {
 
-  private listdevice: any = ["AL244308", "AAP130138", "EVE117013", "XV258133", "YHB274494"];
+  private listdevice: any = ["AL244308", "AAP130138", "EVE177013", "XV258133", "YHB274494"];
 
 
 
