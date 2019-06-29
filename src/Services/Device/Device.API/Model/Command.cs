@@ -8,7 +8,7 @@ namespace Device.API.Model
         private int pin;
         private bool digital;
         private float value;
-
+    
         public string MacAddress
         {
             get => macAddress;

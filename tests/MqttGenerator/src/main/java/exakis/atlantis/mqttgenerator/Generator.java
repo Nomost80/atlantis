@@ -10,6 +10,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class Generator {
     private BrokerConfig brokerConfig;
@@ -27,13 +29,18 @@ public class Generator {
 
             Faker faker = new Faker();
             ObjectMapper mapper = new ObjectMapper();
+            ArrayList<String> macs = new ArrayList<String>();
+
+            for (int a = 0; a < 5; a++) {
+                macs.add(faker.random().hex(12));
+            }
 
             for (int i = 0; i < n; i++) {
                 Metric metric = new Metric();
-                metric.setMacAddress(faker.random().hex(12));
+                metric.setMacAddress(macs.get(faker.random().nextInt(macs.size())));
                 metric.setSensorPin("A" + faker.random().nextInt(1, 10));
                 metric.setSensorPinDigital(faker.bool().bool());
-                metric.setSensorName(metric.getMacAddress() + faker.name().name());
+                metric.setSensorName(metric.getMacAddress() + "_Brighness_" + faker.random().nextInt(1, 3));
                 metric.setSensorType("Brightness");
                 metric.setMetricValue(faker.random().nextInt(0, 255));
 

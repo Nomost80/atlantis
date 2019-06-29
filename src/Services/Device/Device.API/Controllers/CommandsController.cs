@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Device.API.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace Device.API.Controllers
     {
         private IMqttClient _mqttClient;
         private IMqttClientOptions _options = new MqttClientOptionsBuilder()
-            .WithTcpServer("192.168.43.153", 1883)
+            .WithTcpServer("localhost", 1883)
             .WithProtocolVersion(MqttProtocolVersion.V311)
             .Build();
 
@@ -25,7 +26,7 @@ namespace Device.API.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Post([FromBody] Command command)
+        public async Task<ActionResult<MqttClientPublishResult>> Post([FromBody] Command command)
         {
             await _mqttClient.ConnectAsync(_options);
 
@@ -36,9 +37,8 @@ namespace Device.API.Controllers
                 .WithExactlyOnceQoS()
                 .WithRetainFlag()
                 .Build();
-
-            var result = await _mqttClient.PublishAsync(message);
-            return result.ReasonCode == MqttClientPublishReasonCode.Success;
+            
+            return await _mqttClient.PublishAsync(message);
         }
     }
 }
