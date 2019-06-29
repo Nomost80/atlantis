@@ -1,31 +1,28 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using Calculation.Engine.dto;
 using Calculation.Engine.models;
 
-namespace Calculation.Engine
+namespace Calculation.Engine.Business
 {
-    public class CalculationTask : ICalculationTask
+    public class MeanOperation : IOperation
     {
-        private ConcurrentDictionary<String, Statistic> _meansBySensor;
+        private const String NAME = "Mean";
+        private ConcurrentDictionary<String, Statistic> _concurrentDictionary = new ConcurrentDictionary<string, Statistic>();
 
-        public ConcurrentDictionary<string, Statistic> GetMeansBySensor
+        public string GetName()
         {
-            get => _meansBySensor;
-            set => _meansBySensor = value;
+            return NAME;
         }
 
-        public CalculationTask()
+        public ConcurrentDictionary<string, Statistic> GetComputeDictionary()
         {
-            _meansBySensor = new ConcurrentDictionary<string, Statistic>();
+            return _concurrentDictionary;
         }
-        
-        public void Run(object state)
+
+        public void Compute(Metric metric)
         {
-            Console.WriteLine("calculation task started");
-            Metric metric = (Metric) state;
-            _meansBySensor.AddOrUpdate(
+            _concurrentDictionary.AddOrUpdate(
                 metric.SensorName,
                 k => new Statistic
                 {
@@ -42,11 +39,9 @@ namespace Calculation.Engine
                     s.Sum += metric.MetricValue;
                     s.Value = s.Sum / s.Count;
                     s.EndAt = DateTime.Now;
-                    Console.WriteLine(s.ToString());
                     return s;
                 }
             );
-            Console.WriteLine("calculation task ended");
         }
     }
 }

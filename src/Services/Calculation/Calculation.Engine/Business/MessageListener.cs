@@ -7,13 +7,13 @@ using MQTTnet;
 using MQTTnet.Client.Receiving;
 using Newtonsoft.Json;
 
-namespace Calculation.Engine
+namespace Calculation.Engine.Business
 {
     public class MessageListener : IMqttApplicationMessageReceivedHandler
     {
-        private CalculationTask _calculationTask;
+        private NewCalculationTask _calculationTask;
 
-        public MessageListener(CalculationTask calculationTask)
+        public MessageListener(NewCalculationTask calculationTask)
         {
             _calculationTask = calculationTask;
         }
@@ -23,7 +23,6 @@ namespace Calculation.Engine
             String json = Encoding.Default.GetString(eventArgs.ApplicationMessage.Payload);
             Console.WriteLine("Message received: " + json);
             Metric metric = JsonConvert.DeserializeObject<Metric>(json);
-//            Task.Factory.StartNew(o => _calculationTask.run(o), metric);
             bool queued = ThreadPool.QueueUserWorkItem(_calculationTask.Run, metric);
             return Task.FromResult(queued);
         }
