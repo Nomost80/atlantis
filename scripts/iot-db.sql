@@ -3,13 +3,15 @@ CREATE DATABASE iot;
 USE iot;
 
 CREATE TABLE user (
-    id INT NOT NULL AUTO_INCREMENT,
+    id VARCHAR(50) NOT NULL,
+    given_name VARCHAR(50),
+    family_name VARCHAR(50),
     CONSTRAINT user_pk PRIMARY KEY (id)
 ) DEFAULT charset=utf8;
 
 CREATE TABLE device (
     mac_address VARCHAR(30) NOT NULL,
-    user_id INT NULL,
+    user_id VARCHAR(50) NULL,
     CONSTRAINT device_pk PRIMARY KEY (mac_address),
     CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES user(id)
 ) DEFAULT charset=utf8;

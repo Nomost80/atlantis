@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
 
 public interface DeviceRepository extends CrudRepository<Device, String> {
-    Iterable<Device> findByUserId(int userId);
+    Iterable<Device> findByUserId(String userId);
 
     @EntityGraph(value = "device.sensors")
-    Iterable<Metric> findByUserIdAndMacAddress(int userId, String macAddress);
+    Iterable<Metric> findByUserIdAndMacAddress(String userId, String macAddress);
 }
