@@ -1,4 +1,6 @@
-package exakis.atlantis.admin;
+package exakis.atlantis.admin.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -21,6 +23,7 @@ public class Device {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }

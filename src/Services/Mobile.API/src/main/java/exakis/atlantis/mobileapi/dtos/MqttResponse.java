@@ -1,4 +1,4 @@
-package exakis.atlantis.mobileapi.dto;
+package exakis.atlantis.mobileapi.dtos;
 
 import java.io.Serializable;
 

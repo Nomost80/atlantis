@@ -1,9 +1,9 @@
-package exakis.atlantis.mobileapi.security;
+package exakis.atlantis.admin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exakis.atlantis.mobileapi.config.OAuth2Config;
-import exakis.atlantis.mobileapi.dtos.ErrorResponse;
-import exakis.atlantis.mobileapi.models.User;
+import exakis.atlantis.admin.config.OAuth2Config;
+import exakis.atlantis.admin.dtos.ErrorResponse;
+import exakis.atlantis.admin.models.User;
 import org.jose4j.jwa.AlgorithmConstraints;
 import org.jose4j.jwk.HttpsJwks;
 import org.jose4j.jws.AlgorithmIdentifiers;

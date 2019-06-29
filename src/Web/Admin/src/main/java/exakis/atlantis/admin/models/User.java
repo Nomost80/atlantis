@@ -1,4 +1,4 @@
-package exakis.atlantis.mobileapi.models;
+package exakis.atlantis.admin.models;
 
 import com.fasterxml.jackson.annotation.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -86,5 +86,9 @@ public class User implements OAuth2User {
 
     public void setDevices(List<Device> devices) {
         this.devices = devices;
+    }
+
+    public void addDevice(Device device) {
+        this.devices.add(device);
     }
 }
