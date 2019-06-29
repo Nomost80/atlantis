@@ -1,5 +1,7 @@
 package exakis.atlantis.mobileapi.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Sensor {
     private Device device;
 
     @OneToMany(mappedBy = "sensor")
+    @JsonBackReference
     private List<Metric> metrics;
 
     public int getPin() {

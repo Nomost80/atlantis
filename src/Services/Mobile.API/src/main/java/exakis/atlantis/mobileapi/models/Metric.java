@@ -1,5 +1,7 @@
 package exakis.atlantis.mobileapi.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,6 +18,7 @@ public class Metric {
 
     @ManyToOne
     @JoinColumn(name = "sensor_name", referencedColumnName = "name")
+    @JsonManagedReference
     private Sensor sensor;
 
     public int getId() {

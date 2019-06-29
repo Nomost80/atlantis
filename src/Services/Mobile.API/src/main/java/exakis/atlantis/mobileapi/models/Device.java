@@ -1,6 +1,8 @@
 package exakis.atlantis.mobileapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -22,7 +24,6 @@ import java.util.List;
         )
     }
 )
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="macAddress")
 public class Device {
     @Id
     @Column(length = 25)
@@ -30,6 +31,8 @@ public class Device {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
+    @JsonManagedReference
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "device")

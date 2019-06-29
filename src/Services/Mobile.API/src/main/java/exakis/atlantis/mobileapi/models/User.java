@@ -1,7 +1,6 @@
 package exakis.atlantis.mobileapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User implements OAuth2User {
     @Id
     private String id;
@@ -24,12 +22,15 @@ public class User implements OAuth2User {
     private String familyName;
 
     @Transient
+    @JsonIgnore
     private Collection<? extends GrantedAuthority> grantedAuthorities;
 
     @Transient
+    @JsonIgnore
     private Map<String, Object> attributes;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Device> devices;
 
     public String getId() {
@@ -57,6 +58,7 @@ public class User implements OAuth2User {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
     }
