@@ -8,6 +8,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("sensors")
@@ -19,22 +20,28 @@ public class SensorController {
     }
 
     @GetMapping("{sensorId}/calculations")
+    @ResponseBody
     public Iterable<CalculationResponse> getCalculations(@PathVariable String sensorId, CalculationRequest calculationRequest) {
+        System.out.println(calculationRequest.getAggregationType());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:5000/api/calculations/" + sensorId)
+                .queryParam("aggregationType", calculationRequest.getAggregationType())
+                .queryParam("groupBy", calculationRequest.getGroupBy())
+                .queryParam("when", calculationRequest.getWhen());
+
         RestTemplate restTemplate = new RestTemplate();
-//        restTemplate.getForObject("http://localhost:5000/api/calculations/" + sensorId, CalculationResponse[].class, calculationRequest);
         return restTemplate
                 .exchange(
-                        "http://localhost:5000/api/calculations/" + sensorId,
+                        builder.toUriString(),
                         HttpMethod.GET,
                         null,
-                        new ParameterizedTypeReference<Iterable<CalculationResponse>>() {},
-                        calculationRequest
+                        new ParameterizedTypeReference<Iterable<CalculationResponse>>() {}
                 )
                 .getBody();
     }
 
     @GetMapping("{sensorId}/latest_metrics")
     public Iterable<Metric> getLatestMetrics(@PathVariable String sensorId) {
-        return this.metricRepository.findTop10BySensorNameOrderByIdDesc(sensorId);
+        System.out.println("sensorId: " + sensorId);
+        return this.metricRepository.latestMetrics(sensorId);
     }
 }

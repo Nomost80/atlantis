@@ -1,6 +1,8 @@
 package exakis.atlantis.mobileapi.dto;
 
-public class MqttResponse {
+import java.io.Serializable;
+
+public class MqttResponse implements Serializable {
     private String packetIdentifier;
     private String reasonCode;
     private String reasonString;

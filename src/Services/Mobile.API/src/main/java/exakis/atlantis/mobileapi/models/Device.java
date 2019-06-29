@@ -1,29 +1,12 @@
 package exakis.atlantis.mobileapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NamedEntityGraph(
-    name = "device.sensors",
-    attributeNodes = {
-        @NamedAttributeNode(value = "sensors", subgraph = "sensor.metrics")
-    },
-    subgraphs = {
-        @NamedSubgraph(
-            name = "sensor.metrics",
-            attributeNodes = {
-                @NamedAttributeNode(value = "metrics")
-            }
-        )
-    }
-)
+@NamedNativeQuery(name = "Device.getDeviceSensors", query = "SELECT * FROM iot.device d JOIN iot.sensor ON d.mac_address = sensor.device_mac_address WHERE d.user_id = ?1 AND d.mac_address = ?2", resultClass = Device.class)
 public class Device {
     @Id
     @Column(length = 25)
@@ -31,11 +14,9 @@ public class Device {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
-    @JsonManagedReference
-    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "device")
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
     private List<Sensor> sensors;
 
     public String getMacAddress() {
@@ -46,6 +27,7 @@ public class Device {
         this.macAddress = macAddress;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }

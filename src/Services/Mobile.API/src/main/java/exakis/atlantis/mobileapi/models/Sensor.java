@@ -1,17 +1,21 @@
 package exakis.atlantis.mobileapi.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Sensor {
-    private int pin;
-
     @Id
     @Column(length = 25)
     private String name;
+
+    private String pin;
+
+    private boolean digital;
 
     private String type;
 
@@ -20,14 +24,13 @@ public class Sensor {
     private Device device;
 
     @OneToMany(mappedBy = "sensor")
-    @JsonBackReference
     private List<Metric> metrics;
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(int pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 
@@ -39,6 +42,14 @@ public class Sensor {
         this.name = name;
     }
 
+    public boolean isDigital() {
+        return digital;
+    }
+
+    public void setDigital(boolean digital) {
+        this.digital = digital;
+    }
+
     public String getType() {
         return type;
     }
@@ -47,6 +58,7 @@ public class Sensor {
         this.type = type;
     }
 
+    @JsonIgnore
     public Device getDevice() {
         return device;
     }
@@ -55,6 +67,7 @@ public class Sensor {
         this.device = device;
     }
 
+    @JsonIgnore
     public List<Metric> getMetrics() {
         return metrics;
     }

@@ -1,5 +1,6 @@
 package exakis.atlantis.mobileapi.security;
 
+import exakis.atlantis.mobileapi.config.OAuth2Config;
 import exakis.atlantis.mobileapi.models.User;
 import org.jose4j.jwa.AlgorithmConstraints;
 import org.jose4j.jwk.HttpsJwks;
@@ -13,7 +14,6 @@ import org.jose4j.keys.resolvers.HttpsJwksVerificationKeyResolver;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.GenericFilterBean;
@@ -28,9 +28,11 @@ import java.util.List;
 
 @Service
 public class JwtAuthenticationFilter extends GenericFilterBean {
+    private OAuth2Config oAuth2Config;
     private CustomUserService userService;
 
-    public JwtAuthenticationFilter(CustomUserService userService) {
+    public JwtAuthenticationFilter(OAuth2Config oAuth2Config, CustomUserService userService) {
+        this.oAuth2Config = oAuth2Config;
         this.userService = userService;
     }
 
@@ -40,15 +42,15 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String bearerToken = req.getHeader("Authorization");
         String token = bearerToken.substring(7);
 
-        HttpsJwks httpsJkws = new HttpsJwks("https://atlantisproject.b2clogin.com/atlantisproject.onmicrosoft.com/discovery/v2.0/keys?p=b2c_1_signuporsignin");
+        HttpsJwks httpsJkws = new HttpsJwks(oAuth2Config.getJwks());
         HttpsJwksVerificationKeyResolver httpsJwksKeyResolver = new HttpsJwksVerificationKeyResolver(httpsJkws);
 
         JwtConsumer jwtConsumer = new JwtConsumerBuilder()
                 .setRequireExpirationTime()
-                .setAllowedClockSkewInSeconds(3600)
+                .setAllowedClockSkewInSeconds(oAuth2Config.getExpiry())
                 .setRequireSubject()
-                .setExpectedIssuer("https://atlantisproject.b2clogin.com/41dd4f0b-7a80-473f-82fa-d518398d6a7f/v2.0/")
-                .setExpectedAudience("27fb84fe-4baf-4b6b-bfe7-f2d0638f2790")
+                .setExpectedIssuer(oAuth2Config.getIssuer())
+                .setExpectedAudience(oAuth2Config.getIssuer())
                 .setJwsAlgorithmConstraints(new AlgorithmConstraints(
                         AlgorithmConstraints.ConstraintType.WHITELIST,
                         AlgorithmIdentifiers.RSA_USING_SHA256
@@ -69,10 +71,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
             chain.doFilter(request, response);
-        } catch (InvalidJwtException e) {
-            e.printStackTrace();
-        }
-        catch (MalformedClaimException e) {
+        } catch (InvalidJwtException | MalformedClaimException e) {
             e.printStackTrace();
         }
     }

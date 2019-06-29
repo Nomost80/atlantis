@@ -27,6 +27,6 @@ public class DevicesController {
     Device getDeviceSensors(OAuth2AuthenticationToken auth, @PathVariable String macAddress) {
         OAuth2User user = auth.getPrincipal();
         String userId = user.getAttributes().get("oid").toString();
-        return deviceRepository.findByUserIdAndMacAddress(userId, macAddress);
+        return deviceRepository.getDeviceSensors(userId, macAddress);
     }
 }

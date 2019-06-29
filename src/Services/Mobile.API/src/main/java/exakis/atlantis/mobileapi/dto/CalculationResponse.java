@@ -1,6 +1,8 @@
 package exakis.atlantis.mobileapi.dto;
 
-public class CalculationResponse {
+import java.io.Serializable;
+
+public class CalculationResponse implements Serializable {
     private int key;
     private float value;
 

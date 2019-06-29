@@ -1,11 +1,13 @@
 package exakis.atlantis.mobileapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@NamedNativeQuery(name = "Metric.latestMetrics", query = "SELECT * FROM iot.metric m WHERE m.sensor_name = ?1 ORDER BY m.id DESC LIMIT 10", resultClass = Metric.class)
 public class Metric {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,6 @@ public class Metric {
 
     @ManyToOne
     @JoinColumn(name = "sensor_name", referencedColumnName = "name")
-    @JsonManagedReference
     private Sensor sensor;
 
     public int getId() {
@@ -45,6 +46,7 @@ public class Metric {
         this.value = value;
     }
 
+    @JsonIgnore
     public Sensor getSensor() {
         return sensor;
     }
