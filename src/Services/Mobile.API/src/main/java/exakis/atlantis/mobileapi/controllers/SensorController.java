@@ -1,7 +1,7 @@
 package exakis.atlantis.mobileapi.controllers;
 
-import exakis.atlantis.mobileapi.dto.CalculationRequest;
-import exakis.atlantis.mobileapi.dto.CalculationResponse;
+import exakis.atlantis.mobileapi.dtos.CalculationRequest;
+import exakis.atlantis.mobileapi.dtos.CalculationResponse;
 import exakis.atlantis.mobileapi.models.Metric;
 import exakis.atlantis.mobileapi.repositories.MetricRepository;
 import org.springframework.core.ParameterizedTypeReference;

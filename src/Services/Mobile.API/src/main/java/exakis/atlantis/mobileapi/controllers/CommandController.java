@@ -1,7 +1,7 @@
 package exakis.atlantis.mobileapi.controllers;
 
-import exakis.atlantis.mobileapi.dto.Command;
-import exakis.atlantis.mobileapi.dto.MqttResponse;
+import exakis.atlantis.mobileapi.dtos.Command;
+import exakis.atlantis.mobileapi.dtos.MqttResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 

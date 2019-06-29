@@ -1,4 +1,4 @@
-package exakis.atlantis.mobileapi.dto;
+package exakis.atlantis.mobileapi.dtos;
 
 public class CalculationRequest {
     private String aggregationType;

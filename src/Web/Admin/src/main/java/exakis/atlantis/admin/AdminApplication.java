@@ -9,12 +9,7 @@ import org.springframework.boot.SpringApplication;
 		import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-//@EnableAutoConfiguration
-//@ComponentScan(basePackages={"exakis.atlantis.admin"})
-@EnableJpaRepositories(basePackages="exakis.atlantis.admin")
-@EnableTransactionManagement
-@EntityScan(basePackages="exakis.atlantis.admin")
-
+@EnableJpaRepositories
 public class AdminApplication {
 
 	public static void main(String[] args) {
