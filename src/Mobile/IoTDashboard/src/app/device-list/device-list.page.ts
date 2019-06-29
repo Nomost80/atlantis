@@ -3,6 +3,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ApiServiceService } from '../Services/api-service/api-service.service';
 import { AllServiceService } from '../Services/all-service/all-service.service';
+import { LogServiceService } from '../Services/log-service/log-service.service';
 
 
 
@@ -23,6 +24,7 @@ export class DeviceListPage implements OnInit {
     public alertController: AlertController,
     private apiservice: ApiServiceService,
     private allservice: AllServiceService,
+    private logService: LogServiceService,
   ) { }
 
 
@@ -40,12 +42,6 @@ export class DeviceListPage implements OnInit {
 
     this.storage.set('namedevice', device);
     this.navCtrl.navigateForward("/device-info");
-  }
-
-  Disconnect() {
-
-    this.storage.clear();
-    this.navCtrl.navigateBack("/home");
   }
 
 
@@ -81,7 +77,7 @@ export class DeviceListPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
-            this.Disconnect();
+            this.logService.logout();
           }
         }
       ]

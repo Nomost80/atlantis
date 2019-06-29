@@ -10,7 +10,6 @@ export class ApiServiceService {
 
   //PUBLIC
   public EmailRegex = environment.regmail;
-  public LoginURL = environment.loginURL;
 
 
 
