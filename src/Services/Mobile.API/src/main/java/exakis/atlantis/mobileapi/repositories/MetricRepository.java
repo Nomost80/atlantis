@@ -4,4 +4,5 @@ import exakis.atlantis.mobileapi.models.Metric;
 import org.springframework.data.repository.CrudRepository;
 
 public interface MetricRepository extends CrudRepository<Metric, Integer> {
+    Iterable<Metric> findTop10BySensorNameOrderByIdDesc(String sensorId);
 }
