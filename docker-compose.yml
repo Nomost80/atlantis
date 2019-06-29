@@ -6,12 +6,12 @@ services:
       - "1080:1080"
       - "1025:1025"
 
-  emqx:
-    image: emqx/emqx:latest
+  emqx_broker:
+    image: emqx/emqx
     ports:
       - "18083:18083"
       - "8083:8083"
-      - "8084:8084"
+      - "1883:1883"
 
   iot_database:
     image: mysql:latest
