@@ -13,14 +13,15 @@
   <ion-item>
     <ion-label>Mode</ion-label>
     <ion-select [(ngModel)]="mode" interface="popover">
-      <ion-select-option value="maval">Average</ion-select-option>
+      <ion-select-option *ngFor="let mode of listmode;" value="{{mode.type}}">{{mode.type}}
+      </ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label>Sensor</ion-label>
     <ion-select [(ngModel)]="sensor" interface="popover">
-      <ion-select-option *ngFor="let sensor of listsensor;" value="sensor.type">{{sensor.type}}
+      <ion-select-option *ngFor="let sensor of listsensor;" value="{{sensor.type}}">{{sensor.type}}
       </ion-select-option>
     </ion-select>
   </ion-item>

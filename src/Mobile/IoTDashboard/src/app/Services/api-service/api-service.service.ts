@@ -1,87 +1,78 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServiceService {
-  private headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded; charset=UTF-8');
-
-  //PUBLIC
-  public EmailRegex = environment.regmail;
-
+  //private headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded; charset=UTF-8');
+ private headers;
 
 
   constructor(
     private httpClient: HttpClient,
   ) { }
 
-  
-  apiGetDevicesList(token, iduser) {
 
-    this.headers.set('Authorization', token);
+  apiGetDevicesList(token) {
 
-    return this.httpClient.post<any[]>(environment.apiurl + '', {
-      token: token,
-      iduser: iduser
-    },
-      {
-        headers: this.headers
-        //+ Token
-      })
+    this.headers = new HttpHeaders('Authorization: Bearer ' + token);
+
+    return this.httpClient.get<any[]>(environment.apiurl + 'devices',
+    {
+      headers: this.headers
+    });
   }
 
 
-  apiGetDevice(token, iduser, devicename) {
+  apiGetDevice(token, devicename) {
 
-    this.headers.set('Authorization', token);
+    this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.post<any[]>(environment.apiurl + '', {
-      token: token,
-      iduser: iduser,
-      devicename: devicename
-    },
-      {
-        headers: this.headers
-        //+ Token
-      })
+    return this.httpClient.get<any[]>(environment.apiurl + 'sensors/'+ devicename +'/latest_metrics',
+    {
+      headers: this.headers
+    });
   }
 
 
-  apiSetLed(token, iduser, devicename, stateled) {
+  apiSetLed(token, devicename, stateled) {
 
-    this.headers.set('Authorization', token);
+    this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
     return this.httpClient.post<any[]>(environment.apiurl + '', {
-      token: token,
-      iduser: iduser,
-      devicename: devicename,
-      state: stateled
+      macAddress: "B4:E6:2D:09:5B:A7",
+      pin: 2,
+      digital: true,
+      value: stateled
     },
-      {
-        headers: this.headers
-        //+ Token
-      })
+    {
+      headers: this.headers
+    });
   }
 
 
-  apiGetGraph(token, iduser, devicename, mode, sensor, startdate, enddate) {
+  apiGetGraph(token, devicename, mode, sensor, startdate, enddate) {
 
-    this.headers.set('Authorization', token);
+    this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.post<any[]>(environment.apiurl + '', {
-      token: token,
-      iduser: iduser,
-      devicename: devicename,
-      mode: mode,
-      sensor: sensor,
-      startdate: startdate,
-      enddate: enddate
-    },
-      {
-        headers: this.headers
-        //+ Token
-      })
+    return this.httpClient.get<any[]>(environment.apiurl + '',
+    {
+      headers: this.headers
+    });
+  }
+
+
+  apiGetModes(token) {
+
+    this.headers = new HttpHeaders('Authorization: Bearer ' + token);
+
+    return this.httpClient.get<any[]>(environment.apiurl + 'api/calculations/calculation_types',
+    {
+      headers: this.headers
+    });
   }
 }

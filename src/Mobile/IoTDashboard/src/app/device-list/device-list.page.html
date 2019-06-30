@@ -5,26 +5,19 @@
 </ion-header>
 
 <ion-content>
-
-  <!--<ion-button (click)="goGraph()" expand="block" class="element">Graph</ion-button>-->
-
   <div *ngFor="let device of listdevice">
     <ion-item (click)="goDevice(device)">
       <ion-label>
-        Device : {{device}}
+        Device : {{device.macAddress}}
       </ion-label>
     </ion-item>
   </div>
-
-<ion-button (click)="this.logService.logout();"></ion-button>
-
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
     <ion-button (click)="presentAlert()" expand="block" color="danger" fill="outline" class="element buttonLeft">Disconnect
     </ion-button>
-
     <ion-button (click)="LoadDevice()" expand="block" color="success" fill="outline" class="element buttonRight">
       Refresh</ion-button>
   </ion-toolbar>

@@ -5,7 +5,6 @@ import * as jwtDecode from 'jwt-decode';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AllServiceService } from '../all-service/all-service.service';
-import { ApiServiceService } from '../api-service/api-service.service';
 import { environment } from '../../../environments/environment';
 
 
@@ -15,7 +14,6 @@ import { environment } from '../../../environments/environment';
 export class LogServiceService {
 
   constructor(
-    private apiservice: ApiServiceService,
     private allservice: AllServiceService,
     public navCtrl: NavController,
     private inAppBrowser: InAppBrowser,
@@ -36,8 +34,8 @@ export class LogServiceService {
         this.storage.set('token', parsedHash['access_token']);
         this.storage.set('expires', parsedHash['expires_in']);
 
-        var decoded = jwtDecode(parsedHash['access_token']);
-        this.storage.set('oid', decoded.oid);
+        //var decoded = jwtDecode(parsedHash['access_token']);
+        //this.storage.set('oid', decoded.oid);
 
         this.navCtrl.navigateForward("/device-list");
         this.allservice.Spinner(false);

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { ValueTransformer } from '@angular/compiler/src/util';
+import { ApiServiceService } from '../Services/api-service/api-service.service';
+import { AllServiceService } from '../Services/all-service/all-service.service';
 
 @Component({
   selector: 'app-graph-parameter',
@@ -14,6 +15,21 @@ export class GraphParameterPage implements OnInit {
   private sensor: any;
   private startdate: any;
   private enddate: any;
+
+  private listmode: any[] = [
+    {
+      id: 1,
+      type: 'Heat',
+    },
+    {
+      id: 2,
+      type: 'Light',
+    },
+    {
+      id: 3,
+      type: 'Humidity',
+    }
+  ];
 
   private listsensor: any[] = [
     {
@@ -30,13 +46,18 @@ export class GraphParameterPage implements OnInit {
     }
   ];
 
+
+
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
+    private apiservice: ApiServiceService,
+    private allservice: AllServiceService,
   ) { }
 
 
   ngOnInit() {
+    this.Modes();
   }
 
 
@@ -73,9 +94,27 @@ export class GraphParameterPage implements OnInit {
   }
 
 
-  async LoadParameters() {
-    Promise.all([this.storage.get('mode'), this.storage.get('sensor'), this.storage.get('startdate'), this.storage.get('enddate')]).then(values => {
+  async Modes() {
 
+    await this.allservice.Spinner(true);
+
+    Promise.all([this.storage.get('token')]).then(values => {
+
+      this.apiservice.apiGetModes(values[0])
+        .subscribe(valRetour => {
+
+          console.log("MIDDLE");
+
+          if (valRetour['success']) {
+            //OK
+            //Ajout des mods à la liste
+          }
+        }, error => {
+          //Popup Erreur
+          //Affiche erreur
+          console.warn(error)
+        })
+      this.allservice.Spinner(false);
     });
   }
 }

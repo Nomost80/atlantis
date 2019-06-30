@@ -6,7 +6,6 @@ import { AllServiceService } from '../Services/all-service/all-service.service';
 import { LogServiceService } from '../Services/log-service/log-service.service';
 
 
-
 @Component({
   selector: 'app-device-list',
   templateUrl: './device-list.page.html',
@@ -48,20 +47,20 @@ export class DeviceListPage implements OnInit {
   async LoadDevice() {
     await this.allservice.Spinner(true);
 
-    Promise.all([this.storage.get('token'), this.storage.get('oid')]).then(values => {
+    Promise.all([this.storage.get('token')]).then(values => {
 
-      if (values[0] && values[0] !== "") {
+      this.apiservice.apiGetDevicesList(values[0])
+        .subscribe(valRetour => {
 
-        this.apiservice.apiGetDevicesList(values[0], values[1])
-          .subscribe(valRetour => {
+          if (valRetour) {
 
-            if (valRetour['success']) {
-              //OK
-            }
-          }, error => {
-            //Popup Erreur
-          })
-      }
+            this.listdevice = valRetour;
+            console.log(this.listdevice);
+          }
+        }, error => {
+          //Popup Erreur
+          console.warn(error);
+        })
       this.allservice.Spinner(false);
     });
   }
