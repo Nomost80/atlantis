@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiServiceService {
-  //private headers = new HttpHeaders('Content-Type: application/x-www-form-urlencoded; charset=UTF-8');
  private headers;
 
 
@@ -39,15 +38,15 @@ export class ApiServiceService {
   }
 
 
-  apiSetLed(token, devicename, stateled) {
+  apiSetLed(token, devicename) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.post<any[]>(environment.apiurl + '', {
-      macAddress: "B4:E6:2D:09:5B:A7",
+    return this.httpClient.post<any[]>(environment.apiurl + 'commands', {
+      macAddress: devicename,
       pin: 2,
       digital: true,
-      value: stateled
+      value: 1
     },
     {
       headers: this.headers
@@ -70,7 +69,7 @@ export class ApiServiceService {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.get<any[]>(environment.apiurl + 'api/calculations/calculation_types',
+    return this.httpClient.get<any[]>(environment.apiurl + 'calculations/calculation_types',
     {
       headers: this.headers
     });

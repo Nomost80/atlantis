@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ApiServiceService } from '../Services/api-service/api-service.service';
 import { AllServiceService } from '../Services/all-service/all-service.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-graph-parameter',
@@ -34,11 +35,11 @@ export class GraphParameterPage implements OnInit {
   private listsensor: any[] = [
     {
       id: 1,
-      type: 'Heat',
+      type: 'Light',
     },
     {
       id: 2,
-      type: 'Light',
+      type: 'Heat',
     },
     {
       id: 3,
@@ -103,11 +104,9 @@ export class GraphParameterPage implements OnInit {
       this.apiservice.apiGetModes(values[0])
         .subscribe(valRetour => {
 
-          console.log("MIDDLE");
-
           if (valRetour['success']) {
             //OK
-            //Ajout des mods à la liste
+          this.listmode = valRetour;
           }
         }, error => {
           //Popup Erreur

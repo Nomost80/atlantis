@@ -16,7 +16,7 @@ export class DeviceInfoPage implements OnInit {
   @ViewChild('lineCanvas') lineCanvas;
   private lineChart: any;
 
-  private infodevice: any = {
+  public infodevice: any = {
     macAddress: "",
     sensors: [
       {
@@ -93,8 +93,6 @@ export class DeviceInfoPage implements OnInit {
       if (values[0] && values[0] !== "") {
         //Appel API
 
-        //Ajouter ":" pour mac adresse
-
         if (this.ledvalue == true) {
           this.ledvalue = 1;
         }
@@ -102,7 +100,7 @@ export class DeviceInfoPage implements OnInit {
           this.ledvalue = 0;
         }
 
-        this.apiservice.apiSetLed(values[0], values[1], this.ledvalue)
+        this.apiservice.apiSetLed(values[0], values[1])
           .subscribe(valRetour => {
 
             if (valRetour['']) {

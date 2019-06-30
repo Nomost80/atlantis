@@ -13,7 +13,7 @@
   <ion-item>
     <ion-label>Mode</ion-label>
     <ion-select [(ngModel)]="mode" interface="popover">
-      <ion-select-option *ngFor="let mode of listmode;" value="{{mode.type}}">{{mode.type}}
+      <ion-select-option *ngFor="let mode of listmode;" value="{{mode.name}}">{{mode.name}}
       </ion-select-option>
     </ion-select>
   </ion-item>
