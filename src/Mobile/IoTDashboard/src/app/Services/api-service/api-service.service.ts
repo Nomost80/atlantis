@@ -31,7 +31,7 @@ export class ApiServiceService {
   apiGetDevice(token, devicename) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
-
+    console.log(environment.apiurl + 'sensors/'+ devicename +'/latest_metrics')
     return this.httpClient.get<any[]>(environment.apiurl + 'sensors/'+ devicename +'/latest_metrics',
     {
       headers: this.headers

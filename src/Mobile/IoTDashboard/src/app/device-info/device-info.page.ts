@@ -16,9 +16,17 @@ export class DeviceInfoPage implements OnInit {
   @ViewChild('lineCanvas') lineCanvas;
   private lineChart: any;
 
-  private namedevice: any;
-  private type: any;
-  private lastmetric: any;
+  private infodevice: any = {
+    macAddress: "",
+    sensors: [
+      {
+        name: "",
+        pin: "",
+        digital: false,
+        type: ""
+      }
+    ]
+  };
   private ledvalue: any;
 
   private orderly = [
@@ -124,66 +132,71 @@ export class DeviceInfoPage implements OnInit {
 
         this.apiservice.apiGetDevice(values[0], values[1])
           .subscribe(valRetour => {
-
+            console.log(valRetour);
             if (valRetour) {
               //OK
+              this.infodevice = valRetour;
+              console.log(this.infodevice)
 
-              //Appel API
-              this.apiservice.apiGetGraph(values[0], values[1], values[2], values[3], values[4], values[5])
-                .subscribe(valRetour => {
-                  if (!valRetour['']) {
-                    //OK
-                    this.type = valRetour['']; //************/
-                    this.lastmetric = valRetour['']; //************/
-                    this.ledvalue = valRetour['']; //************/
+              if (values[2] && values[2] !== "") {
+                //Appel API                 token, devicename, mode, sensor, startdate, enddate
+                this.apiservice.apiGetGraph(values[0], values[1], values[2], values[3], values[4], values[5])
+                  .subscribe(valeurRetour => {
+                    console.log(valeurRetour);
+                    if (valeurRetour) {
+                      //OK
+                      //this.ledvalue = valeurRetour['']; //************/
 
-                    //Création du graph
-                    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-                      type: 'line',
-                      data: {
-                        //********************************************************************************//
-                        labels: this.orderly,
-                        //********************************************************************************//
-                        datasets: [
-                          {
-                            label: 'Sensor measurement',
-                            fill: false,
-                            lineTension: 0.1,
-                            backgroundColor: 'rgba(49, 113, 224,0.4)',
-                            borderColor: 'rgba(49, 113, 224,1)',
-                            borderCapStyle: 'butt',
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: 'miter',
-                            pointBorderColor: 'rgba(49, 113, 224,1)',
-                            pointBackgroundColor: '#fff',
-                            pointBorderWidth: 1,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: 'rgba(49, 113, 224,1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                            //********************************************************************************//
-                            data: this.abscissa,
-                            //********************************************************************************//
-                            spanGaps: false,
+                      //Création du graph
+                      this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+                        type: 'line',
+                        data: {
+                          //********************************************************************************//
+                          labels: this.orderly,
+                          //********************************************************************************//
+                          datasets: [
+                            {
+                              label: 'Sensor measurement',
+                              fill: false,
+                              lineTension: 0.1,
+                              backgroundColor: 'rgba(49, 113, 224,0.4)',
+                              borderColor: 'rgba(49, 113, 224,1)',
+                              borderCapStyle: 'butt',
+                              borderDash: [],
+                              borderDashOffset: 0.0,
+                              borderJoinStyle: 'miter',
+                              pointBorderColor: 'rgba(49, 113, 224,1)',
+                              pointBackgroundColor: '#fff',
+                              pointBorderWidth: 1,
+                              pointHoverRadius: 5,
+                              pointHoverBackgroundColor: 'rgba(49, 113, 224,1)',
+                              pointHoverBorderColor: 'rgba(220,220,220,1)',
+                              pointHoverBorderWidth: 2,
+                              pointRadius: 1,
+                              pointHitRadius: 10,
+                              //********************************************************************************//
+                              data: this.abscissa,
+                              //********************************************************************************//
+                              spanGaps: false,
+                            }
+                          ]
+                        },
+                        options: {
+                          legend: {
+                            display: false
                           }
-                        ]
-                      },
-                      options: {
-                        legend: {
-                          display: false
-                        }
-                      },
-                    });
+                        },
+                      });
+                      this.allservice.Spinner(false);
+                    }
+                  }, error => {
+                    //Popup Erreur
+                    console.warn(error);
                     this.allservice.Spinner(false);
-                  }
-                }, error => {
-                  //Popup Erreur
-                  console.warn(error);
-                  this.allservice.Spinner(false);
-                })
+                  })
+              } else {
+                this.allservice.Spinner(false);
+              }
             } else {
               this.allservice.Spinner(false);
             }

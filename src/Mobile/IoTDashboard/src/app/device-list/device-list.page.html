@@ -6,7 +6,7 @@
 
 <ion-content>
   <div *ngFor="let device of listdevice">
-    <ion-item (click)="goDevice(device)">
+    <ion-item (click)="goDevice(device.macAddress)">
       <ion-label>
         Device : {{device.macAddress}}
       </ion-label>
