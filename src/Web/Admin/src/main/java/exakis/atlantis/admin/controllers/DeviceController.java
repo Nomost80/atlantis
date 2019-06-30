@@ -16,7 +16,7 @@ public class DeviceController {
 
     @GetMapping
     public Iterable<Device> getDevices() {
-        return this.deviceRepository.findAll();
+        return this.deviceRepository.findDevicesWithoutUser();
     }
 
     @PostMapping("{deviceId}/user")

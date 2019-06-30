@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 // CRUD refers Create, Read, Update, Delete
 
 public interface DeviceRepository extends CrudRepository<Device, String> {
+    Iterable<Device> findDevicesWithoutUser();
 }
