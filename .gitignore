@@ -4,6 +4,7 @@
 *.ipr
 .sonarqube
 */.lck
+node_modules
 
 ############## .NET #################
 
