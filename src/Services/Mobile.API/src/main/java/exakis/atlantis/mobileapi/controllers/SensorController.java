@@ -26,7 +26,8 @@ public class SensorController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:5000/api/calculations/" + sensorId)
                 .queryParam("aggregationType", calculationRequest.getAggregationType())
                 .queryParam("groupBy", calculationRequest.getGroupBy())
-                .queryParam("when", calculationRequest.getWhen());
+                .queryParam("startAt", calculationRequest.getStartAt())
+                .queryParam("endAt", calculationRequest.getEndAt());
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate

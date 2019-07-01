@@ -3,7 +3,8 @@ package exakis.atlantis.mobileapi.dtos;
 public class CalculationRequest {
     private String aggregationType;
     private String groupBy;
-    private int when;
+    private String startAt;
+    private String endAt;
 
     public String getAggregationType() {
         return aggregationType;
@@ -21,11 +22,19 @@ public class CalculationRequest {
         this.groupBy = groupBy;
     }
 
-    public int getWhen() {
-        return when;
+    public String getStartAt() {
+        return startAt;
     }
 
-    public void setWhen(int when) {
-        this.when = when;
+    public void setStartAt(String startAt) {
+        this.startAt = startAt;
+    }
+
+    public String getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(String endAt) {
+        this.endAt = endAt;
     }
 }
