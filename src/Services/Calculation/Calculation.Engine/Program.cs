@@ -7,6 +7,7 @@ namespace Calculation.Engine
     {
         static void Main(string[] args)
         {
+            //test
             MetricConsumer metricConsumer = new MetricConsumer();
             metricConsumer.listen();
             
