@@ -19,6 +19,8 @@ webservice.interceptors.response.use(response => {
             localStorage.removeItem('access_token');
             localStorage.removeItem('token_type');
         }
+        const destination = window.location.pathname;
+        localStorage.setItem('redirect_to', destination);
         window.location.href = "https://atlantisproject.b2clogin.com/atlantisproject.onmicrosoft.com/oauth2/v2.0/authorize?p=b2c_1_signuporsignin&response_type=token&client_id=27fb84fe-4baf-4b6b-bfe7-f2d0638f2790&scope=27fb84fe-4baf-4b6b-bfe7-f2d0638f2790%20openid&state=D9aUT4AWYPbEmL2htHtfVmNTNUH3umtisNaNYP-ctCo%3D&redirect_uri=http://localhost:8090/login"
     }
 })

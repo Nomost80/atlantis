@@ -18,6 +18,7 @@ export default class Login extends Component {
     }
 
     render() {
-        return this.state.logged ? <Redirect to='/'/> : null;
+        const redirectTo = localStorage.getItem('redirect_to') || '/';
+        return this.state.logged ? <Redirect to={redirectTo}/> : null;
     }
 }
