@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Device info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Name : {{infodevice.macAddress}}</ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Led : </ion-label>
+      <ion-toggle [(ngModel)]="ledvalue" (ionChange)="toggleChange($event)"></ion-toggle>
+    </ion-item>
+  </ion-card>
+
+  <ion-list>
+    <ion-radio-group [(ngModel)]="sensorname" (ionChange)="infoDeviceGraphEvent($event)">
+      <ion-card *ngFor="let sensor of infodevice.sensors" for="sensor.name">
+        <div>
+          <ion-item>
+            <ion-label>Name : {{sensor.name}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Type : {{sensor.type}}</ion-label>
+            <ion-button (click)="goSensorLast(sensor.name)" slot="end" fill="outline" color="dark" class="element">
+              sensor
+              last metric</ion-button>
+          </ion-item>
+        </div>
+        <ion-radio slot="start" name="radioSensor" value="{{sensor.name}}" id="sensor.name" checked="*ngIf sensor.name = sensorname"></ion-radio>
+      </ion-card>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-card>
+    <canvas #lineCanvas style="margin-top: 2vh;" class="element"></canvas>
+    <ion-item>
+      <ion-button (click)="goGraphParameter()" slot="end" fill="outline" color="dark" class="element">Edit Graph
+      </ion-button>
+    </ion-item>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="goBack()" expand="block" fill="outline" class="element buttonLeft">Back</ion-button>
+
+    <ion-button (click)="infoDeviceGraph()" expand="block" fill="outline" color="success" class="element buttonRight">
+      Refresh</ion-button>
+  </ion-toolbar>
+</ion-footer>

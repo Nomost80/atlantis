@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Graph Parameter</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Device : {{this.namedevice}}</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Mode</ion-label>
+    <ion-select [(ngModel)]="mode" interface="popover">
+      <ion-select-option *ngFor="let mode of listmode;" value="{{mode.name}}">{{mode.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Group by</ion-label>
+    <ion-select [(ngModel)]="group" interface="popover">
+      <ion-select-option *ngFor="let group of listgroup;" value="{{group.type}}">{{group.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Start Mesurment</ion-label>
+    <ion-datetime [(ngModel)]="startdate" displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>End Mesurment</ion-label>
+    <ion-datetime [(ngModel)]="enddate" displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+  </ion-item>
+
+  <ion-button (click)="Validate()" expand="block" fill="outline" color="success" class="element">Validate</ion-button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="goBack()" expand="block" fill="outline" class="element">Back</ion-button>
+  </ion-toolbar>
+</ion-footer>

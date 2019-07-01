@@ -1,0 +1,40 @@
+//********************
+//      VARIABLES
+//********************
+
+//********************
+//      MIXIN
+//********************
+
+//********************
+//      CLASS
+//********************
+
+ion-title{
+
+  color: #3880ff;
+  font-weight: bold;
+}
+
+.element {
+  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  background-color: transparent;
+}
+
+.errordiv {
+  color: #f04141;
+  text-align: end;
+  margin-right: 1vh;
+}
+
+.buttonLeft {
+  width: 65%;
+  float: left;
+}
+
+.buttonRight {
+  width: 30%;
+  float: right;
+}
