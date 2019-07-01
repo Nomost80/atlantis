@@ -1,7 +1,6 @@
 package exakis.atlantis.mobileapi.controllers;
 
 import exakis.atlantis.mobileapi.dtos.CalculationType;
-import exakis.atlantis.mobileapi.dtos.MqttResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
