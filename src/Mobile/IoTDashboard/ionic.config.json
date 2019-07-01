@@ -1,5 +1,7 @@
 {
-  "name": "IoTDashboard",
-  "integrations": {},
+  "name": "ATLANTIS Application",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

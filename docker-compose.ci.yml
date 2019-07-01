@@ -11,7 +11,7 @@ services:
       teamcity-net:
         ipv4_address: 172.16.238.10
 
-  teamcity-agent:
+  teamcity-agent-one:
     image: jetbrains/teamcity-agent
     environment:
       SERVER_URL: "http://172.16.238.10:8111"
@@ -26,6 +26,22 @@ services:
     networks:
       teamcity-net:
         ipv4_address: 172.16.238.11
+
+  teamcity-agent-two:
+    image: jetbrains/teamcity-agent
+    environment:
+      SERVER_URL: "http://172.16.238.10:8111"
+    volumes:
+      - "/srv/teamcity-agent/conf:/data/teamcity_agent/conf"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/srv/teamcity-agent/work:/opt/buildagent/work"
+      - "/srv/teamcity-agent/temp:/opt/buildagent/temp"
+      - "/srv/teamcity-agent/tools:/opt/buildagent/tools"
+      - "/srv/teamcity-agent/plugins:/opt/buildagent/plugins"
+      - "/srv/teamcity-agent/system:/opt/buildagent/system"
+    networks:
+      teamcity-net:
+        ipv4_address: 172.16.238.12
 
 networks:
   teamcity-net:
