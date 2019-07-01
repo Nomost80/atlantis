@@ -12,6 +12,6 @@ public class CommandController {
     @ResponseBody
     public MqttResponse sendCommand(@RequestBody Command command) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject("http://localhost:5000/api/commands", command, MqttResponse.class);
+        return restTemplate.postForObject("http://localhost:4999/api/commands", command, MqttResponse.class);
     }
 }
