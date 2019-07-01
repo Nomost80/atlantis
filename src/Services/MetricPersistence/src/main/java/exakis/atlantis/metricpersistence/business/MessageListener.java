@@ -44,6 +44,7 @@ public class MessageListener implements IMqttMessageListener {
             Device device = this.deviceRepository.findById(metricDTO.getMacAddress()).orElseGet(() -> {
                 Device newDevice = new Device();
                 newDevice.setMacAddress(metricDTO.getMacAddress());
+                this.deviceRepository.save(newDevice);
                 return newDevice;
             });
 
@@ -54,6 +55,7 @@ public class MessageListener implements IMqttMessageListener {
                 newSensor.setDigital(metricDTO.isSensorPinDigital());
                 newSensor.setType(metricDTO.getSensorType());
                 newSensor.setDevice(device);
+                this.sensorRepository.save(newSensor);
                 return newSensor;
             });
 

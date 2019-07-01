@@ -1,6 +1,7 @@
 package exakis.atlantis.metricpersistence.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Sensor {
@@ -13,9 +14,12 @@ public class Sensor {
 
     private String type;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "device_mac_address", referencedColumnName = "macAddress")
     private Device device;
+
+    @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
+    private List<Metric> metrics;
 
     public String getPin() {
         return pin;
@@ -55,5 +59,17 @@ public class Sensor {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    public List<Metric> getMetrics() {
+        return metrics;
+    }
+
+    public void setMetrics(List<Metric> metrics) {
+        this.metrics = metrics;
+    }
+
+    public void addMetric(Metric metric) {
+        this.metrics.add(metric);
     }
 }

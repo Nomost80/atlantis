@@ -9,6 +9,7 @@ namespace Calculation.Engine.dto
         private String sensorPin;
         private bool sensorDigital;
         private String sensorType;
+        private bool digital;
         private float metricValue;
 
         public string MacAddress
@@ -39,6 +40,12 @@ namespace Calculation.Engine.dto
         {
             get => sensorType;
             set => sensorType = value;
+        }
+
+        public bool Digital
+        {
+            get => digital;
+            set => digital = value;
         }
 
         public float MetricValue

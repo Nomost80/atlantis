@@ -38,7 +38,9 @@ namespace Device.API.Controllers
                 .WithRetainFlag()
                 .Build();
             
-            return await _mqttClient.PublishAsync(message);
+            var response = await _mqttClient.PublishAsync(message);
+            Console.WriteLine("response: {0} {1}", response.ReasonCode, response.ReasonString);
+            return response;
         }
     }
 }
