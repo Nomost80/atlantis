@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
@@ -9,8 +10,8 @@ namespace Calculation.Engine.Business
 {
     public class MetricConsumer
     {
-        private IMqttClient _mqttClient;
-        private IMqttClientOptions _mqttClientOptions;
+        private readonly IMqttClient _mqttClient;
+        private readonly IMqttClientOptions _mqttClientOptions;
 
         public MetricConsumer()
         {
@@ -21,7 +22,7 @@ namespace Calculation.Engine.Business
                 .Build();
         }
 
-        public async void listen()
+        public async Task listen()
         {
             await _mqttClient.ConnectAsync(_mqttClientOptions);
             await _mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("metric").WithAtMostOnceQoS().Build());
