@@ -74,7 +74,6 @@ export class DeviceInfoPage implements OnInit {
 
 
   ionViewWillEnter() {
-    console.log("infoDeviceGraph")
     this.infoDeviceGraph();
   }
 
@@ -95,8 +94,12 @@ export class DeviceInfoPage implements OnInit {
     this.navCtrl.navigateForward("sensor-last");
   }
 
-  infoDeviceGraphEvent($event){
-    this.infoDeviceGraph();
+  async infoDeviceGraphEvent($event) {
+    await this.allservice.Spinner(true);
+    Promise.all([this.storage.get('token'), this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('group'), this.storage.get('startdate'), this.storage.get('enddate')]).then(values => {
+      this.getgraph(values[0], values[2].toLowerCase(), values[3], values[4], values[5]);
+      this.allservice.Spinner(false);
+    });
   }
 
 
@@ -120,13 +123,13 @@ export class DeviceInfoPage implements OnInit {
           .subscribe(valRetour => {
 
             if (valRetour['reasonCode'] == 0) {
+
               this.allservice.Toast();
             } else {
+
               this.ledvalue = false;
               this.allservice.Alert("Command Error - Return " + valRetour['reasonCode']);
             }
-            console.log(valRetour);
-            console.log(valRetour['reasonCode'])
 
             this.allservice.Spinner(false);
           }, error => {
@@ -145,22 +148,21 @@ export class DeviceInfoPage implements OnInit {
   async infoDeviceGraph() {
     await this.allservice.Spinner(true);
     Promise.all([this.storage.get('token'), this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('group'), this.storage.get('startdate'), this.storage.get('enddate')]).then(values => {
-console.log("-1")
+
       if (values[0] && values[0] !== "") {
-        console.log(0)
+
         this.apiservice.apiGetDeviceSensors(values[0], values[1])
           .subscribe(vRetour => {
-            console.log(1)
+
             if (vRetour) {
               //OK
               this.infodevice = vRetour;
-              console.log(2)
+
               if (values[2] && values[2] !== "" && this.sensorname && this.sensorname !== "") {
-                console.log(3)
+
                 this.getgraph(values[0], values[2].toLowerCase(), values[3], values[4], values[5])
-                console.log(4)
+
               } else {
-                console.log(5)
                 this.allservice.Spinner(false);
               }
             } else {
@@ -180,10 +182,10 @@ console.log("-1")
 
 
   getgraph(token, mode, group, startdate, enddate) {
+
+    //Splite la date pour garder le début
     var datestart = startdate.split('T')[0]
     var datefin = enddate.split('T')[0]
-
-    console.log(token + "" + mode + "" + group + "" + startdate + "" + enddate)
 
     //Appel API                       token,    devicename,   mode, group, startdate, enddate
     this.apiservice.apiGetCalculation(token, this.sensorname, mode, group, datestart, datefin)
@@ -191,6 +193,7 @@ console.log("-1")
         if (valRetour) {
           //OK
 
+          //Splite le tableau en deux
           this.orderly = valRetour.map(c => c['key'])
           this.abscissa = valRetour.map(c => c['value']);
 

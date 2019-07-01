@@ -54,7 +54,7 @@ export class AllServiceService {
   async Toast() {
     const toast = await this.toastController.create({
       message: 'Command to device successful',
-      duration: 3000
+      duration: 2000
     });
     toast.present();
   }
