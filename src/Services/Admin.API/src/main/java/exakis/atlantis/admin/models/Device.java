@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
+@NamedNativeQuery(name = "Device.findDevicesWithoutUser", query = "SELECT * FROM iot.device d WHERE d.user_id IS NULL", resultClass = Device.class)
 public class Device {
     @Id
     @Column(length = 25)

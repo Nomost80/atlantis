@@ -14,7 +14,7 @@ public class Metric {
 
     private float value;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sensor_name", referencedColumnName = "name")
     private Sensor sensor;
 

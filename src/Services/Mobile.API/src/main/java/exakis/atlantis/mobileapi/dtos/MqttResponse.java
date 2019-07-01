@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MqttResponse implements Serializable {
     private String packetIdentifier;
-    private String reasonCode;
+    private int reasonCode;
     private String reasonString;
 
     public String getPacketIdentifier() {
@@ -15,11 +15,11 @@ public class MqttResponse implements Serializable {
         this.packetIdentifier = packetIdentifier;
     }
 
-    public String getReasonCode() {
+    public int getReasonCode() {
         return reasonCode;
     }
 
-    public void setReasonCode(String reasonCode) {
+    public void setReasonCode(int reasonCode) {
         this.reasonCode = reasonCode;
     }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Calculation.API.dto;
 using Calculation.API.models;
@@ -25,14 +26,24 @@ namespace Calculation.API.Controllers
             String sensorId, 
             [FromQuery] String aggregationType, 
             [FromQuery] String groupBy,
-            [FromQuery] int when
+            [FromQuery] String startAt,
+            [FromQuery] String endAt
         )
         {
             using (StatisticContext context = new StatisticContext())
             {
+                DateTime startAtDate = DateTime.ParseExact(startAt, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                startAtDate.AddHours(-12);
+                DateTime endAtDate = DateTime.ParseExact(endAt, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                endAtDate.AddHours(-12);
+                
+                Console.WriteLine("startDate: " + startAtDate);
+                Console.WriteLine("endDate: " + endAtDate);
+                
                 IEnumerable<Statistic> statistics = context.Statistics.Where(s => 
                     s.SensorName == sensorId && 
-                    s.StatisticType.Name == aggregationType
+                    s.StatisticType.Name == aggregationType &&
+                    s.EndAt >= startAtDate && s.EndAt <= endAtDate
                 );
 
                 IEnumerable<IGrouping<int, Statistic>> groupedStatistics;
@@ -40,22 +51,16 @@ namespace Calculation.API.Controllers
                 switch (groupBy)
                 {
                     case "day":
-                        groupedStatistics = statistics
-                            .Where(s => s.EndAt.Month == when)
-                            .GroupBy(s => s.EndAt.Day);
+                        groupedStatistics = statistics.GroupBy(s => s.EndAt.Day);
                         break;
                     case "month":
-                        groupedStatistics = statistics
-                            .Where(s => s.EndAt.Year == when)
-                            .GroupBy(s => s.EndAt.Month);
+                        groupedStatistics = statistics.GroupBy(s => s.EndAt.Month);
                         break;
                     case "year":
                         groupedStatistics = statistics.GroupBy(s => s.EndAt.Year);
                         break;
                     default:
-                        groupedStatistics = statistics
-                            .Where(s => s.EndAt.Day == when)
-                            .GroupBy(s => s.EndAt.Hour);
+                        groupedStatistics = statistics.GroupBy(s => s.EndAt.Hour);
                         break;
                 }
 

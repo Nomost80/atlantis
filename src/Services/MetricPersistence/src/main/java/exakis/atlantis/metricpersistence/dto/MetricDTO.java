@@ -11,6 +11,8 @@ public class MetricDTO {
 
     private String sensorType;
 
+    private boolean digital;
+
     private float metricValue;
 
     public String getMacAddress() {
@@ -51,6 +53,14 @@ public class MetricDTO {
 
     public void setSensorType(String sensorType) {
         this.sensorType = sensorType;
+    }
+
+    public boolean getDigital() {
+        return digital;
+    }
+
+    public void setDigital(boolean digital) {
+        this.digital = digital;
     }
 
     public float getMetricValue() {
