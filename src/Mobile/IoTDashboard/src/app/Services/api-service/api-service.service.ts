@@ -8,22 +8,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiServiceService {
- private headers;
+  private headers;
 
 
   constructor(
     private httpClient: HttpClient,
   ) { }
 
-//Get User Devices
+  //Get User Devices
   apiGetDevicesList(token) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
     return this.httpClient.get<any[]>(environment.apiurl + 'devices',
-    {
-      headers: this.headers
-    });
+      {
+        headers: this.headers
+      });
   }
 
   //Get Device Sensors
@@ -31,26 +31,26 @@ export class ApiServiceService {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.get<any[]>(environment.apiurl + 'devices/'+ devicename +'/sensors',
-    {
-      headers: this.headers
-    });
+    return this.httpClient.get<any[]>(environment.apiurl + 'devices/' + devicename + '/sensors',
+      {
+        headers: this.headers
+      });
   }
 
 
-//Get Sensor Latest Metrics
-  apiGetLatestMetrics(token, devicename) {
+  //Get Sensor Latest Metrics
+  apiGetLatestMetrics(token, sensorname) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.get<any[]>(environment.apiurl + 'sensors/'+ devicename +'/latest_metrics',
-    {
-      headers: this.headers
-    });
+    return this.httpClient.get<any[]>(environment.apiurl + 'sensors/' + sensorname + '/latest_metrics',
+      {
+        headers: this.headers
+      });
   }
 
-//Send Command via Mobile
-  apiSetLed(token, devicename) {
+  //Send Command via Mobile
+  apiSetLed(token, devicename, value) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
@@ -58,32 +58,34 @@ export class ApiServiceService {
       macAddress: devicename,
       pin: 2,
       digital: true,
-      value: 1
+      value: value
     },
-    {
-      headers: this.headers
-    });
+      {
+        headers: this.headers
+      });
   }
 
-//Get Calculation
-  apiGetCalculation(token, devicename, mode, sensor, startdate, enddate) {
+  //Get Calculation
+  apiGetCalculation(token, sensorname, mode, group, startdate, enddate) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
-    return this.httpClient.get<any[]>(environment.apiurl + 'api/calculations/B4:E6:2D:09:5B:A7.Brightness01?aggregationType=mean&groupBy=hour&when=28',
-    {
-      headers: this.headers
-    });
+    console.info(environment.apiurl + 'sensors/' + sensorname + '/calculations?aggregationType=' + mode + '&groupBy=' + group + '&startAt=' + startdate + '&endAt='+ enddate)
+
+    return this.httpClient.get<any[]>(environment.apiurl + 'sensors/' + sensorname + '/calculations?aggregationType=' + mode + '&groupBy=' + group + '&startAt=' + startdate + '&endAt='+ enddate,
+      {
+        headers: this.headers
+      });
   }
 
-//Calculation Types
+  //Calculation Types
   apiGetModes(token) {
 
     this.headers = new HttpHeaders('Authorization: Bearer ' + token);
 
     return this.httpClient.get<any[]>(environment.apiurl + 'calculations/types',
-    {
-      headers: this.headers
-    });
+      {
+        headers: this.headers
+      });
   }
 }

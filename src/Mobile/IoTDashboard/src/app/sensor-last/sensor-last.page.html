@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sensor Last</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let metric of sensorlastmetrics">
+    <ion-card>
+      <ion-label>Date : {{metric.date}}</ion-label>
+      <ion-label>Value : {{metric.value}}</ion-label>
+    </ion-card>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="goBack()" expand="block" fill="outline" class="element buttonLeft">Back</ion-button>
+
+    <ion-button (click)="lastmetrics()" expand="block" fill="outline" color="success" class="element buttonRight">
+      Refresh</ion-button>
+  </ion-toolbar>
+</ion-footer>

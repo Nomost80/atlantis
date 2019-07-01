@@ -53,14 +53,19 @@ export class DeviceListPage implements OnInit {
         .subscribe(valRetour => {
 
           if (valRetour) {
-
             this.listdevice = valRetour;
+            this.allservice.Spinner(false);
+          }
+          else {
+            this.allservice.Spinner(false);
+            this.allservice.Alert("Command Error");
           }
         }, error => {
           //Popup Erreur
           console.warn(error);
+          this.allservice.Spinner(false);
+          this.allservice.Alert("API Error");
         })
-      this.allservice.Spinner(false);
     });
   }
 

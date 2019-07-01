@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController, ToastController  } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,8 @@ export class AllServiceService {
 
   constructor(
     private loadingController: LoadingController,
+    public alertCtrl: AlertController,
+    public toastController: ToastController,
   ) { }
 
 
@@ -32,5 +34,28 @@ export class AllServiceService {
       await this.loading.dismiss();
       this.spinner = true;
     }
+  }
+
+  async Alert(texte) {
+
+    const alert = await this.alertCtrl.create({
+      header: texte,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
+  async Toast() {
+    const toast = await this.toastController.create({
+      message: 'Command to device successful',
+      duration: 3000
+    });
+    toast.present();
   }
 }

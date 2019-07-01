@@ -10,23 +10,29 @@
       <ion-label>Name : {{infodevice.macAddress}}</ion-label>
     </ion-item>
 
-    <ion-item *ngFor="let sensor of infodevice.sensors">
-      <ion-label>Type : {{sensor.type}}</ion-label>
-      <ion-label>Last Metric : {{sensor.last}}</ion-label>
-    </ion-item>
-
     <ion-item>
       <ion-label>Led : </ion-label>
-      <!--<ion-button (click)="ToggleLed()" slot="end" class="element">Toggle</ion-button>-->
       <ion-toggle [(ngModel)]="ledvalue" (ionChange)="toggleChange($event)"></ion-toggle>
     </ion-item>
-
-    <!--
-    <ion-item>
-      <ion-range pin="true"></ion-range>
-    </ion-item>
-    -->
-  </ion-card>
+    <ion-list>
+      <ion-radio-group [(ngModel)]="sensorname" (ionChange)="infoDeviceGraphEvent($event)">
+        <ion-card *ngFor="let sensor of infodevice.sensors" id="sensor.name">
+          <div>
+            <ion-item>
+              <ion-label>Name : {{sensor.name}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Type : {{sensor.type}}</ion-label>
+              <ion-button (click)="goSensorLast(sensor.name)" slot="end" fill="outline" color="dark" class="element">
+                sensor
+                last metric</ion-button>
+            </ion-item>
+          </div>
+          <ion-radio slot="start" name="test" value="{{sensor.name}}" for="sensor.name"></ion-radio>
+        </ion-card>
+      </ion-radio-group>
+    </ion-list>
+  </ion-card>,
 
   <ion-card>
     <canvas #lineCanvas style="margin-top: 2vh;" class="element"></canvas>

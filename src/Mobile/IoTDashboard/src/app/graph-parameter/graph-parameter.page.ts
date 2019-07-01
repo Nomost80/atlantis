@@ -13,25 +13,28 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class GraphParameterPage implements OnInit {
   private namedevice: any;
   private mode: any;
-  private sensor: any;
+  private group: any;
   private startdate: any;
   private enddate: any;
 
   private listmode: any[] = [
   ];
 
-  private listsensor: any[] = [
+  private listgroup: any[] = [
     {
       id: 1,
-      type: 'Light',
+      name: 'Hour',
+      type: 'hour',
     },
     {
       id: 2,
-      type: 'Heat',
+      name: 'Month',
+      type: 'month',
     },
     {
       id: 3,
-      type: 'Humidity',
+      name: 'Year',
+      type: 'year',
     }
   ];
 
@@ -56,14 +59,14 @@ export class GraphParameterPage implements OnInit {
 
 
   getStorage() {
-    Promise.all([this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('sensor'), this.storage.get('startdate'), this.storage.get('enddate'), this.storage.get('listsensor')]).then(values => {
+    Promise.all([this.storage.get('namedevice'), this.storage.get('mode'), this.storage.get('group'), this.storage.get('startdate'), this.storage.get('enddate'), this.storage.get('listsensor')]).then(values => {
 
       this.namedevice = values[0];
       this.mode = values[1];
-      this.sensor = values[2];
+      this.group = values[2];
       this.startdate = values[3];
       this.enddate = values[4];
-      this.listsensor = values[5];
+      this.listgroup = values[5];
     });
   }
 
@@ -75,7 +78,7 @@ export class GraphParameterPage implements OnInit {
 
   Validate() {
     this.storage.set('mode', this.mode);
-    this.storage.set('sensor', this.sensor);
+    this.storage.set('group', this.group);
     this.storage.set('startdate', this.startdate);
     this.storage.set('enddate', this.enddate);
 
@@ -92,16 +95,18 @@ export class GraphParameterPage implements OnInit {
       this.apiservice.apiGetModes(values[0])
         .subscribe(valRetour => {
 
-          if (valRetour['success']) {
-            //OK
-          this.listmode = valRetour;
+          if (valRetour) {
+            this.listmode = valRetour;
+            this.allservice.Spinner(false);
+          } else {
+            this.allservice.Spinner(false);
+            this.allservice.Alert("Command Error");
           }
         }, error => {
-          //Popup Erreur
-          //Affiche erreur
           console.warn(error)
+          this.allservice.Spinner(false);
+          this.allservice.Alert("API Error");
         })
-      this.allservice.Spinner(false);
     });
   }
 }

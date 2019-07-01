@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'device-info', loadChildren: './device-info/device-info.module#DeviceInfoPageModule' },
   //{ path: 'device-graph', loadChildren: './device-graph/device-graph.module#DeviceGraphPageModule' },
   { path: 'graph-parameter', loadChildren: './graph-parameter/graph-parameter.module#GraphParameterPageModule' },
+  { path: 'sensor-last', loadChildren: './sensor-last/sensor-last.module#SensorLastPageModule' },
 ];
 
 @NgModule({
