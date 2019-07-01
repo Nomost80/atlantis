@@ -55,7 +55,6 @@ export class DeviceListPage implements OnInit {
           if (valRetour) {
 
             this.listdevice = valRetour;
-            console.log(this.listdevice);
           }
         }, error => {
           //Popup Erreur

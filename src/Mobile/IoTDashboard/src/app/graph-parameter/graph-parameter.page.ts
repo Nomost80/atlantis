@@ -18,18 +18,6 @@ export class GraphParameterPage implements OnInit {
   private enddate: any;
 
   private listmode: any[] = [
-    {
-      id: 1,
-      type: 'Heat',
-    },
-    {
-      id: 2,
-      type: 'Light',
-    },
-    {
-      id: 3,
-      type: 'Humidity',
-    }
   ];
 
   private listsensor: any[] = [

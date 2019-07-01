@@ -23,10 +23,12 @@ export class DeviceInfoPage implements OnInit {
         name: "",
         pin: "",
         digital: false,
-        type: ""
+        type: "",
+        last: ""
       }
     ]
   };
+
   private ledvalue: any;
 
   private orderly = [
@@ -55,7 +57,6 @@ export class DeviceInfoPage implements OnInit {
     50,
     10,
     15];
-
 
 
 
@@ -100,12 +101,16 @@ export class DeviceInfoPage implements OnInit {
           this.ledvalue = 0;
         }
 
+        this.infodevice["macAddress"] = values[1];
+
         this.apiservice.apiSetLed(values[0], values[1])
           .subscribe(valRetour => {
 
             if (valRetour['']) {
               //OK
               //Traitement de la réponse
+
+              console.log(valRetour)
 
               this.allservice.Spinner(false);
             }
@@ -128,75 +133,92 @@ export class DeviceInfoPage implements OnInit {
 
       if (values[0] && values[0] !== "") {
 
-        this.apiservice.apiGetDevice(values[0], values[1])
-          .subscribe(valRetour => {
-            console.log(valRetour);
-            if (valRetour) {
+        this.apiservice.apiGetDeviceSensors(values[0], values[1])
+          .subscribe(vRetour => {
+
+            if (vRetour) {
               //OK
-              this.infodevice = valRetour;
+              //Traitement de la réponse
+              console.log(vRetour)
+              this.infodevice = vRetour;
               console.log(this.infodevice)
 
-              if (values[2] && values[2] !== "") {
-                //Appel API                 token, devicename, mode, sensor, startdate, enddate
-                this.apiservice.apiGetGraph(values[0], values[1], values[2], values[3], values[4], values[5])
-                  .subscribe(valeurRetour => {
-                    console.log(valeurRetour);
-                    if (valeurRetour) {
-                      //OK
-                      //this.ledvalue = valeurRetour['']; //************/
+              this.apiservice.apiGetLatestMetrics(values[0], values[1])
+                .subscribe(valRetour => {
+                  console.log(valRetour);
+                  if (valRetour) {
+                    //OK
 
-                      //Création du graph
-                      this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-                        type: 'line',
-                        data: {
-                          //********************************************************************************//
-                          labels: this.orderly,
-                          //********************************************************************************//
-                          datasets: [
-                            {
-                              label: 'Sensor measurement',
-                              fill: false,
-                              lineTension: 0.1,
-                              backgroundColor: 'rgba(49, 113, 224,0.4)',
-                              borderColor: 'rgba(49, 113, 224,1)',
-                              borderCapStyle: 'butt',
-                              borderDash: [],
-                              borderDashOffset: 0.0,
-                              borderJoinStyle: 'miter',
-                              pointBorderColor: 'rgba(49, 113, 224,1)',
-                              pointBackgroundColor: '#fff',
-                              pointBorderWidth: 1,
-                              pointHoverRadius: 5,
-                              pointHoverBackgroundColor: 'rgba(49, 113, 224,1)',
-                              pointHoverBorderColor: 'rgba(220,220,220,1)',
-                              pointHoverBorderWidth: 2,
-                              pointRadius: 1,
-                              pointHitRadius: 10,
-                              //********************************************************************************//
-                              data: this.abscissa,
-                              //********************************************************************************//
-                              spanGaps: false,
-                            }
-                          ]
-                        },
-                        options: {
-                          legend: {
-                            display: false
+
+
+                    if (values[2] && values[2] !== "") {
+
+                      //Appel API                        token,   devicename,   mode,     sensor,   startdate, enddate
+                      this.apiservice.apiGetCalculation(values[0], values[1], values[2], values[3], values[4], values[5])
+                        .subscribe(valeurRetour => {
+                          console.log(valeurRetour);
+                          if (valeurRetour) {
+                            //OK
+                            //this.ledvalue = valeurRetour['']; //************/
+
+                            //Création du graph
+                            this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+                              type: 'line',
+                              data: {
+                                //********************************************************************************//
+                                labels: this.orderly,
+                                //********************************************************************************//
+                                datasets: [
+                                  {
+                                    label: 'Sensor measurement',
+                                    fill: false,
+                                    lineTension: 0.1,
+                                    backgroundColor: 'rgba(49, 113, 224,0.4)',
+                                    borderColor: 'rgba(49, 113, 224,1)',
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: 'rgba(49, 113, 224,1)',
+                                    pointBackgroundColor: '#fff',
+                                    pointBorderWidth: 1,
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: 'rgba(49, 113, 224,1)',
+                                    pointHoverBorderColor: 'rgba(220,220,220,1)',
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 1,
+                                    pointHitRadius: 10,
+                                    //********************************************************************************//
+                                    data: this.abscissa,
+                                    //********************************************************************************//
+                                    spanGaps: false,
+                                  }
+                                ]
+                              },
+                              options: {
+                                legend: {
+                                  display: false
+                                }
+                              },
+                            });
+                            this.allservice.Spinner(false);
                           }
-                        },
-                      });
+                        }, error => {
+                          //Popup Erreur
+                          console.warn(error);
+                          this.allservice.Spinner(false);
+                        })
+                    } else {
                       this.allservice.Spinner(false);
                     }
-                  }, error => {
-                    //Popup Erreur
-                    console.warn(error);
+                  } else {
                     this.allservice.Spinner(false);
-                  })
-              } else {
-                this.allservice.Spinner(false);
-              }
-            } else {
-              this.allservice.Spinner(false);
+                  }
+                }, error => {
+                  //Popup Erreur
+                  console.warn(error);
+                  this.allservice.Spinner(false);
+                })
             }
           }, error => {
             //Popup Erreur

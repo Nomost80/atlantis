@@ -12,10 +12,7 @@
 
     <ion-item *ngFor="let sensor of infodevice.sensors">
       <ion-label>Type : {{sensor.type}}</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Last Metric : {{infodevice}}</ion-label>
+      <ion-label>Last Metric : {{sensor.last}}</ion-label>
     </ion-item>
 
     <ion-item>
@@ -35,7 +32,8 @@
     <canvas #lineCanvas style="margin-top: 2vh;" class="element"></canvas>
 
     <ion-item>
-      <ion-button (click)="goGraphParameter()" slot="end" fill="outline" color="dark" class="element">Edit Graph</ion-button>
+      <ion-button (click)="goGraphParameter()" slot="end" fill="outline" color="dark" class="element">Edit Graph
+      </ion-button>
     </ion-item>
 
   </ion-card>
